@@ -1,0 +1,52 @@
+<div class="row">
+  <!--<div class="">-->
+    <form class="col s12 m8 l6 card r1" [formGroup]="form" novalidate materialize>
+      <div class="card-content">
+        <span class="card-title center">Create an account</span>
+
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="first_name" type="text" class="validate" placeholder="First Name" [formControl]="form.controls['fname']">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <input id="last_name" type="text" class="validate" placeholder="Last Name" [formControl]="form.controls['lname']">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate" placeholder="something@example.com" [formControl]="form.controls['email']">
+          <label for="email">Email</label>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" placeholder="Password should be atleast 6 digits" [formControl]="form.controls['password']">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <select name="selectedOption" materialize="material_select" [materializeSelectOptions]="selectOptions" [formControl]="form.controls['gender']" >
+              <option value="" disabled selected>Choose your gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+            <label>Gender</label>
+          </div>
+          <div class="col s12 m6 input-field">
+            <label for="birthdate">Birthdate</label>
+            <input id="birthdate"
+                   materialize="pickadate"
+                   [materializeParams]="[{selectMonths: true, selectYears: true}]"
+                   type="text" placeholder="Birthdate" [formControl]="form.controls['dob']"/>
+          </div>
+        </div>
+        <input type="submit" value="Sign Up" class="btn right waves-effect waves-light  ">
+  </div>
+      </div>
+  <!--</div>-->
+  </form>
+
+</div>
