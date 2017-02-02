@@ -1,34 +1,34 @@
 <div class="row">
   <!--<div class="">-->
-    <form class="col s12 m8 l6 card r1" [formGroup]="form" novalidate materialize>
+    <form class="col s12 m8 l6 card r1" [formGroup]="form" materialize novalidate (ngSubmit)="onRegister(form.value)">
       <div class="card-content">
         <span class="card-title center">Create an account</span>
 
       <div class="row">
         <div class="input-field col s12 m6">
-          <input id="first_name" type="text" class="validate" placeholder="First Name" [formControl]="form.controls['fname']">
+          <input id="first_name" type="text" class="validate" placeholder="First Name" [formControl]="form.controls['fname']" required="true">
           <label for="first_name">First Name</label>
         </div>
         <div class="input-field col s12 m6">
-          <input id="last_name" type="text" class="validate" placeholder="Last Name" [formControl]="form.controls['lname']">
+          <input id="last_name" type="text" class="validate" placeholder="Last Name" [formControl]="form.controls['lname']" required="true">
           <label for="last_name">Last Name</label>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate" placeholder="something@example.com" [formControl]="form.controls['email']">
+          <input id="email" type="email" class="validate" placeholder="something@example.com" [formControl]="form.controls['email']" required="true">
           <label for="email">Email</label>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="password" type="password" class="validate" placeholder="Password should be atleast 6 digits" [formControl]="form.controls['password']">
+            <input id="password" type="password" class="validate" materialize="characterCounter" minlength="6" required="true" placeholder="Password should be atleast 6 digits" [formControl]="form.controls['password']">
             <label for="password">Password</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 m6">
-            <select name="selectedOption" materialize="material_select" [materializeSelectOptions]="selectOptions" [formControl]="form.controls['gender']" >
+            <select name="selectedOption" materialize="material_select" [materializeSelectOptions]="selectOptions" required="true" [formControl]="form.controls['gender']" >
               <option value="" disabled selected>Choose your gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -39,11 +39,25 @@
             <label for="birthdate">Birthdate</label>
             <input id="birthdate"
                    materialize="pickadate"
-                   [materializeParams]="[{selectMonths: true, selectYears: true}]"
-                   type="text" placeholder="Birthdate" [formControl]="form.controls['dob']"/>
+                   [materializeParams]="[{selectMonths: true, selectYears:100}]"
+                   type="text" placeholder="Birthdate" [formControl]="form.controls['dob']" (click)="yearSelect()" required="true"/>
           </div>
         </div>
-        <input type="submit" value="Sign Up" class="btn right waves-effect waves-light  ">
+
+          <div class="preloader-wrapper small active right" *ngIf="!btn">
+            <div class="spinner-layer spinner-red-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+            </div>
+          </div>
+
+        <button type="submit"  class="btn right waves-effect waves-light  " *ngIf="btn">Sign Up</button>
+        <button class="btn right waves-effect waves-light" disabled *ngIf="!btn">Sign Up</button>
   </div>
       </div>
   <!--</div>-->

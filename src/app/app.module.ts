@@ -12,12 +12,15 @@ import { FooterComponent } from './footer/footer.component';
 import {AngularFireModule} from "angularfire2";
 import {firebaseConfig, authConfig} from "./firebase.config";
 import {MaterializeDirective,MaterializeModule} from "angular2-materialize";
+import { HomeComponent } from './home/home.component';
+import {UserService} from "./user.service";
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     SignupComponent,
     FooterComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,7 @@ import {MaterializeDirective,MaterializeModule} from "angular2-materialize";
     AngularFireModule.initializeApp(firebaseConfig, authConfig),
     MaterializeModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
