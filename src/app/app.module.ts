@@ -14,6 +14,8 @@ import {firebaseConfig, authConfig} from "./firebase.config";
 import {MaterializeDirective,MaterializeModule} from "angular2-materialize";
 import { HomeComponent } from './home/home.component';
 import {UserService} from "./user.service";
+import { DpUploadComponent } from './dp-upload/dp-upload.component';
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +23,8 @@ import {UserService} from "./user.service";
     SignupComponent,
     FooterComponent,
     HomeComponent,
+    DpUploadComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

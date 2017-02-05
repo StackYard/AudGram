@@ -1,9 +1,9 @@
 import {Component, OnInit, trigger, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder} from "@angular/forms";
 import {AngularFire} from "angularfire2";
-import {MaterializeAction} from "angular2-materialize";
-import {Route, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {UserService} from "../user.service";
+import {storage} from  'firebase';
 declare let Materialize:any;
 @Component({
   selector: 'app-signup',
@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
   form: FormGroup;
   btn = true;
   user;
+
   constructor(fb: FormBuilder, private af: AngularFire, private router:Router, private us:UserService) {
     this.form = fb.group({
       'fname': [''],
@@ -26,23 +27,23 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
+    // let Storage = storage();
+    // let storageRef = Storage.ref();
+    // let imgRef = storageRef.child('w.jpg');
+    // imgRef.getDownloadURL().then((url)=>{
+    //   console.log(url)
+    // })
+    //   .catch((err)=>{
+    //   console.log(err)
+    //   })
+    this.af.auth.login({email:'haziz@gmail.com', password: '123456'}).then(d=>{
+      this.us.updateUid(d.uid);
+      this.us.login(d.uid,'l');
+      console.log(this.us.getkey())
+      console.log(this.us.getkey())
 
+    })
 
-  }
-  yearSelect(){
-    setTimeout(()=>{
-      let select = document.getElementsByClassName("picker__select--year browser-default")[0];
-      let date = new Date();
-      let year = date.getFullYear();
-      // console.log(year, select);
-      select.innerHTML = "";
-      for(let i = 1980; i <= year; i++){
-        select.innerHTML += `<option value="${i}" id="${i}">${i}</option>`
-      }
-      let y:any = document.getElementById(year.toString());
-      y.selected="selected";
-
-    }, 400)
   }
 
   onRegister(x){
@@ -69,9 +70,9 @@ export class SignupComponent implements OnInit {
        this.us.updateKey(this.af.database.list('/users')
          .push({email: x.email, dob:x.dob,fname:x.fname,lname:x.lname,gender:x.gender, uid: d.uid})
          .key);
+        this.us.login(d.uid,'s');
+        this.af.database.object("uid/"+d.uid).set({key: this.us.getkey()});
         this.us.updateUid(d.uid);
-        this.us.logIn();
-        this.router.navigate(['/home']);
       })
     })
       .catch(err=>{

@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import {AngularFire, FirebaseListObservable} from "angularfire2";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class UserService {
 user;
 uid;
 key;
-  constructor(private af:AngularFire) {
+  constructor(private af:AngularFire, private router:Router) {
 
+  }
+  getUid(){
+    return this.uid;
   }
   updateUid(v){
     this.uid = v;
@@ -18,9 +22,28 @@ key;
   updateKey(x){
     this.key = x;
   }
-  logIn(){
-    this.af.database.object('users/'+this.key).subscribe((v)=>{
-      this.user = v;
+  login(u,t){
+
+    this.af.database.object('uid/'+u).subscribe((v)=>{
+      this.key = v.key;
+      this.af.database.object('users/'+this.key).subscribe((val)=>{
+        this.user = val;
+        console.log(this.key);
+        console.log(this.user);
+        console.log(this.uid);
+        if(t == 's'){
+          this.router.navigate(['/index/UploadProfilePicture']);
+        }
+        else {
+
+          this.router.navigate(['/index/profile/'+this.key]);
+
+        }
+      })
+
     })
+  }
+  getkey(){
+    return this.key;
   }
 }
