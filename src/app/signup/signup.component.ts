@@ -36,12 +36,19 @@ export class SignupComponent implements OnInit {
     //   .catch((err)=>{
     //   console.log(err)
     //   })
-    this.af.auth.login({email:'haziz@gmail.com', password: '123456'}).then(d=>{
-      this.us.updateUid(d.uid);
-      this.us.login(d.uid,'l');
-      console.log(this.us.getkey())
-      console.log(this.us.getkey())
-
+    // // this.af.auth.login({email:'haziz@gmail.com', password: '123456'}).then(d=>{
+    //   this.us.updateUid(d.uid);
+    //   this.us.login(d.uid,'l');
+    //   // console.log(this.us.getkey())
+    //   // console.log(this.us.getkey())
+    //
+    // // })
+    // this.af.auth.subscribe((d)=>{
+    //   console.log(d);
+    //   this.us.login(d.uid, 'l');
+    // });
+    this.af.auth.subscribe((d)=>{
+      this.router.navigate(['/index/profile/'+d.uid]);
     })
 
   }
@@ -67,12 +74,8 @@ export class SignupComponent implements OnInit {
     this.btn = false;
     this.af.auth.createUser({email:x.email, password: x.password}).then(()=>{
       this.af.auth.login({email:x.email, password: x.password}).then((d)=>{
-       this.us.updateKey(this.af.database.list('/users')
-         .push({email: x.email, dob:x.dob,fname:x.fname,lname:x.lname,gender:x.gender, uid: d.uid})
-         .key);
+       this.af.database.list('/users').push({email: x.email, dob:x.dob,fname:x.fname,lname:x.lname,gender:x.gender, uid: d.uid});
         this.us.login(d.uid,'s');
-        this.af.database.object("uid/"+d.uid).set({key: this.us.getkey()});
-        this.us.updateUid(d.uid);
       })
     })
       .catch(err=>{

@@ -8,13 +8,13 @@ import {ProfileComponent} from "./profile/profile.component";
  */
 export const routes: Routes = [
   {path: '', component: WelcomeComponent},
-  {path: ':ukey', redirectTo: 'index/profile/:ukey', pathMatch:'full'},
-  {path: 'profile/:ukey', redirectTo: 'index/profile/:ukey', pathMatch:'full'},
+  {path: ':uid', redirectTo: 'index/profile/:uid', pathMatch:'full'},
+  {path: 'profile/:uid', redirectTo: 'index/profile/:uid', pathMatch:'full'},
   {path: 'index', component: HomeComponent, children:
     [
       {path:'UploadProfilePicture', component: DpUploadComponent},
-      {path: 'profile/:ukey', component:ProfileComponent},
-      {path: 'profile', redirectTo:'profile/:ukey', pathMatch:'full'},
+      {path: 'profile/:uid', component:ProfileComponent},
+      // {path: 'profile', redirectTo:'profile/:uid', pathMatch:'full'},
 
     ]
   }
