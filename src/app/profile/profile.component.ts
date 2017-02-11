@@ -13,7 +13,7 @@ declare var Materialize;
 export class ProfileComponent implements OnInit, OnDestroy {
   uid;
   btn = false;
-  user = {dp: '', dob: '', fname:'', lname:'', gender: '', email: '', $key: ''};
+  user = {dp: '', dob: '', fname:'', lname:'', gender: '', email: '', $key: '', uid:''};
   file;ext;ref;loader;key;
   constructor(private ar: ActivatedRoute, private af: AngularFire, private cs: ComponentService, private us:UserService) {
     this.cs.updateFooter(false);
@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.ext = this.ext[this.ext.length-1];
     let date= new Date();
     let time = date.getTime();
-    this.ref = storage().ref(this.us.getUid() +'/posts/'+this.us.getUid()+"_"+time+'.'+this.ext);
+    this.ref = storage().ref(this.user.uid +'/posts/'+this.user.uid+"_"+time+'.'+this.ext);
   }
   onPost(ta,f,fp){
     this.btn = false;
