@@ -47,9 +47,7 @@ export class SignupComponent implements OnInit {
     //   console.log(d);
     //   this.us.login(d.uid, 'l');
     // });
-    this.af.auth.subscribe((d)=>{
-      this.router.navigate(['/index/profile/'+d.uid]);
-    })
+
 
   }
 
@@ -75,7 +73,7 @@ export class SignupComponent implements OnInit {
     this.af.auth.createUser({email:x.email, password: x.password}).then(()=>{
       this.af.auth.login({email:x.email, password: x.password}).then((d)=>{
        this.af.database.list('/users').push({email: x.email, dob:x.dob,fname:x.fname,lname:x.lname,gender:x.gender, uid: d.uid});
-        this.us.login(d.uid,'s');
+        this.us.login(d.uid,'/index/UploadProfilePicture');
       })
     })
       .catch(err=>{

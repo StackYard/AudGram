@@ -22,7 +22,7 @@ key;
   updateKey(x){
     this.key = x;
   }
-  login(u,t){
+  login(u,url){
 
     // this.af.database.object('uid/'+u).subscribe((v)=>{
     //   this.key = v.key;
@@ -51,16 +51,19 @@ key;
     }).subscribe((v)=>{
       this.user = v[0];
       this.uid = this.user.uid;
+      this.key = this.user.$key;
       console.log(this.uid);
       console.log(this.user);
-      if(t == 's'){
-        this.router.navigate(['/index/UploadProfilePicture']);
-      }
-      else {
+      this.router.navigate([url]);
 
-        this.router.navigate(['/index/profile/'+this.key]);
-
-      }
+      // if(t == 's'){
+      //   this.router.navigate(['/index/UploadProfilePicture']);
+      // }
+      // else {
+      //
+      //   this.router.navigate(['/index/profile/'+this.key]);
+      //
+      // }
     });
   }
   getkey(){

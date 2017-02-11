@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import {UserService} from "./user.service";
 import { DpUploadComponent } from './dp-upload/dp-upload.component';
 import { ProfileComponent } from './profile/profile.component';
+import {ComponentService} from "./component.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,7 @@ import { ProfileComponent } from './profile/profile.component';
     AngularFireModule.initializeApp(firebaseConfig, authConfig),
     MaterializeModule
   ],
-  providers: [UserService],
+  providers: [UserService, ComponentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
