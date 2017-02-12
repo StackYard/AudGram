@@ -14,6 +14,10 @@ export class ReplaceLineBreaks implements PipeTransform {
 })
 export class PostComponent implements OnInit {
   @Input() post;
+  @Input() fname;
+  @Input() lname;
+  @Input() uid;
+  @Input() dp;
   constructor() { }
 
   ngOnInit() {

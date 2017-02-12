@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit() {
+    console.log(this.us.getUid());
     console.log(this.cs.getFooter());
 
   }

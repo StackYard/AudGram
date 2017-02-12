@@ -10,12 +10,16 @@
 <main>
   <div class="container">
     <app-create-post
+      *ngIf="uid == us.getUid()"
       [dp]="user.dp"
       [key]="user.$key"
       [uid]="user.uid"></app-create-post>
     <app-post
       *ngFor="let post of posts"
-      [post]="post"></app-post>
+      [post]="post"
+      [lname]="user.lname" [fname]="user.fname"
+      [uid]="uid"
+      [dp]="user.dp"></app-post>
 
   </div>
 </main>

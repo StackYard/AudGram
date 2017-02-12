@@ -5,7 +5,7 @@
       <form materialize class="col s12" (submit)="onPost(ta, f,fp);">
         <div class="row">
           <div class="col s3 m2 l1">
-            <img class="circle" [src]="dp" *ngIf="dp" style="width: 39px">
+            <img class="circle" [src]="dp" *ngIf="dp" style="width: 39px; height: 39px">
           </div>
           <div class="input-field col s9 m10 l11">
             <textarea id="textarea1" class="materialize-textarea ta" materialize="characterCounter" placeholder="Write Post here!" #ta (input)="onInput(ta)" ></textarea>

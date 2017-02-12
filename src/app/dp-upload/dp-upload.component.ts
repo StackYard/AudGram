@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {storage} from 'firebase';
 import {UserService} from "../user.service";
 import {AngularFire} from "angularfire2";
+import {Router} from "@angular/router";
 // import {Materialize} from "../signup/signup.component";
 declare var Materialize: any;
 @Component({
@@ -16,7 +17,7 @@ export class DpUploadComponent implements OnInit {
   time:any= new Date();
   btn = false;
   loader = false;
-  constructor(private us: UserService, private af: AngularFire) {
+  constructor(private us: UserService, private af: AngularFire, private router: Router) {
     this.time = this.time.getTime();
   }
 
@@ -53,6 +54,8 @@ export class DpUploadComponent implements OnInit {
         });
 
         this.af.database.list('/users').update(this.us.getkey(), {dp: task.snapshot.downloadURL});
+        this.router.navigate(['/index/profile/'+ this.us.getUid()]);
+
       }
     )
   }

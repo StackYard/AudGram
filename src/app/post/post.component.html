@@ -1,5 +1,9 @@
 <div class="card">
   <div class="card-content">
+    <div>
+      <img [src]="dp" class="circle" alt="">
+      <a [routerLink]="['/index/profile/'+uid]"><b>{{fname}} {{lname}}</b></a>
+    </div>
     <p [outerHTML]="post.text | replaceLineBreaks"></p>
   </div>
 </div>
