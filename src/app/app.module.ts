@@ -17,6 +17,9 @@ import {UserService} from "./user.service";
 import { DpUploadComponent } from './dp-upload/dp-upload.component';
 import { ProfileComponent } from './profile/profile.component';
 import {ComponentService} from "./component.service";
+import { UserInfoComponent } from './user-info/user-info.component';
+import {PostComponent, ReplaceLineBreaks} from './post/post.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +29,10 @@ import {ComponentService} from "./component.service";
     HomeComponent,
     DpUploadComponent,
     ProfileComponent,
+    UserInfoComponent,
+    PostComponent,
+    CreatePostComponent,
+    ReplaceLineBreaks
   ],
   imports: [
     BrowserModule,

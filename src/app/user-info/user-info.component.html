@@ -1,0 +1,28 @@
+<ul id="slide-out" class="side-nav fixed">
+  <li><div class="userView">
+    <div class="background">
+      <img src="" style="background-color: #333; width: 100%; height: 100%">
+    </div>
+    <a href="#!user" class="center center-align">
+      <img class="circle" style="margin-left: auto; margin-right: auto;" [src]="dp" *ngIf="dp">
+      <div class="preloader-wrapper big active" *ngIf="!dp">
+        <div class="spinner-layer spinner-green-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+      </div>
+    </a>
+    <a href="#!name"><span class="white-text name">{{fname}} {{lname}}</span></a>
+    <a href="#!email"><span class="white-text email">{{email}}</span></a>
+  </div></li>
+  <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+  <li><a href="#!">Second Link</a></li>
+  <li><div class="divider"></div></li>
+  <li><a class="subheader">Subheader</a></li>
+  <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+</ul>
