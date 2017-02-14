@@ -22,12 +22,7 @@ img.circle{
   font-size: small;
   
 }
-.nopm{
-  padding: 0;
-  margin: 0;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-}
+
 .nopm button{
   background-color: white;
   color: black;
@@ -35,4 +30,39 @@ img.circle{
 }
 .nr{
   border-radius: 0 0 0 0;
+}
+.commentBox{
+  padding: 0;
+  margin: 0;
+}
+.card-content{
+  padding: 10px;
+}
+.nopm{
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.pt{
+  padding-top: 5px;
+}
+.a.btn{
+  /*margin-left: 3rem;*/
+  padding: 0;
+  background: transparent;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  line-height: normal;
+  text-transform: none;
+  font-size: small;
+  height: auto;
+  color: #039be5;
+}
+.a.btn i{
+  font-size: 1rem;
+  color: #039be5;
+  margin-right: 5px;
+  
 }

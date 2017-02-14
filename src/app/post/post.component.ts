@@ -51,17 +51,26 @@ export class PostComponent implements OnInit {
 
   }
   onLike(){
-    this.af.database.list(`/posts/${this.uid}/${this.post.$key}/likes/`).push({name: this.user.fname + " " + this.user.lname, uid: this.user.uid})
+    this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).push({name: this.user.fname + " " + this.user.lname, uid: this.user.uid})
   }
   onUnLike(){
-    this.af.database.list(`/posts/${this.uid}/${this.post.$key}/likes/`).remove(this.isLiked.$key);
+    this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).remove(this.isLiked.$key);
   }
   onCommentButton(){
     this.comment = true;
   }
+  onComment(comment){
+
+    if(comment.value){
+    this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).push({uid: this.us.getUid(), dp: this.us.getUser().dp, name: this.us.getUser().fname+" "+this.us.getUser().lname, comment: comment.value})
+    .then(()=>{
+      comment.value = "";
+    })
+    }
+  }
   ngOnInit() {
     this.audio = new Audio(this.post.audio);
-     this.af.database.list(`/posts/${this.uid}/${this.post.$key}/likes/`,{
+     this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`,{
        query:{
          orderByChild: 'uid',
          equalTo: this.us.getUid(),
@@ -70,7 +79,7 @@ export class PostComponent implements OnInit {
      }).subscribe((v)=>{
        this.isLiked = v[0];
      });
-    this.af.database.list(`/posts/${this.uid}/${this.post.$key}/likes/`).subscribe((v)=>{
+    this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).subscribe((v)=>{
       this.likeLength = v.length;
     })
      console.log(this.post)

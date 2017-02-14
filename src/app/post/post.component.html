@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-content">
+  <div class="card-content pt">
     <div class="input-field col s12">
       <img [src]="dp" class="circle prefix" alt="" align="middle" style="margin-left: 2px">            
       <a [routerLink]="['/index/profile/'+uid]" class="btn name-btn">
@@ -24,13 +24,14 @@
       <button class="btn btn-wave" (click)="onCommentButton()"><i class="material-icons left">comment</i>Comment</button>
     </div>
     <div class="card-content nr" *ngIf="likeLength" style="padding-top: 5px; padding-bottom: 5px; border-bottom: 0.5px solid lightslategray">
-      <a>{{likeLength}} <span *ngIf="likeLength == 1">people</span><span *ngIf="likeLength > 1">peoples</span> like this</a>
+      <a class="btn btn-wave a"><i class="material-icons tiny left">thumb_up</i>{{likeLength}} <span *ngIf="likeLength == 1">people</span><span *ngIf="likeLength > 1">peoples</span> like this</a>
     </div>
     <div class="card-content pc center" *ngIf="comment">
        <div class="row">
         <div class="input-field col s12">
           <img class="circle prefix" [src]="dp" *ngIf="dp" style="width: 39px; height: 39px">
-          <input id="comment_input" type="text" class="validate" placeholder="Write Your Comment" autofocus>
+          <input id="comment_input" type="text" class="validate" placeholder="Write Your Comment" autofocus #c (keyup.enter)="onComment(c)">
+          <!--<textarea name="" placeholder="Write Your Comment" class="validate commentBox materialize-textarea"></textarea>-->
           <!--<label for="comment_input"></label>-->
         </div>
        </div>
