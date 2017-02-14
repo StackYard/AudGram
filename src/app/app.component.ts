@@ -17,17 +17,29 @@ export class AppComponent implements OnInit{
     console.log(this.footer, this.cs.getFooter());
   }
   ngOnInit(){
-    // this.af.auth.subscribe((d)=>{
-    //   if(d){
-    //     this.router.navigate(['/index/profile/'+d.uid]);
-    //     this.us.updateUid(d.uid);
-    //   }
-    //   else {
-    //     this.af.auth.login({email:'haziz@gmail.com', password: '123456'}).then(d=>{
-    //       this.us.login(d.uid, '/index/profile/'+d.uid)
-    //     });
-    //
-    //   }
-    // })
+    this.af.auth.subscribe((d)=>{
+      if(d){
+        
+        // this.router.navigate(['/index/profile/'+d.uid]);
+        // this.us.updateUid(d.uid);
+            this.af.database.list('/users',{
+      query: {
+        orderByChild: 'uid',
+        equalTo: d.uid,
+        limitToFirst: 1
+      }
+    }).subscribe((v)=>{
+      this.us.updateUser(v[0]);
+      this.us.updateUid(d.uid);
+      this.router.navigate(['/index/profile/'+d.uid]);      
+    });
+      }
+      else {
+        this.af.auth.login({email:'haziz@gmail.com', password: '123456'}).then(d=>{
+          this.us.login(d.uid, '/index/profile/'+d.uid)
+        });
+    
+      }
+    })
   }
 }

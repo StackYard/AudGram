@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute, Data } from '@angular/router';
 import {ComponentService} from "../component.service";
 import {UserService} from "../user.service";
 import {AngularFire} from "angularfire2";
@@ -20,14 +20,6 @@ export class CreatePostComponent implements OnInit {
   constructor( private af: AngularFire, private cs: ComponentService, private us:UserService) {
     console.log(this.uid, this.key, this.dp)
   }
-  onInput(ta){
-    if(ta.value){
-      this.btn = true;
-    }
-    else {
-      this.btn = false;
-    }
-  }
   onFileChange(f){
     this.btn = true;
     this.file = f.files[0];
@@ -41,7 +33,7 @@ export class CreatePostComponent implements OnInit {
     this.btn = false;
     this.loader = true;
     let date = new Date();
-    let time = date.getTime();
+    
     if(this.file){
       let task = this.ref.put(this.file);
       task.on('state_changed',
@@ -56,7 +48,7 @@ export class CreatePostComponent implements OnInit {
           this.ref.getDownloadURL().then((url)=>{
             console.log(url);
 
-            this.af.database.list('/posts/'+this.uid).push({text: ta.value, audio: url, time: time}).then(()=>{
+            this.af.database.list('/posts/'+this.uid).push({text: ta.value, audio: url, time: date.getHours() + ":" + date.getMinutes() + " " + date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear()}).then(()=>{
               this.loader = false;
               ta.value = "";
               ta.style.padding = '0';

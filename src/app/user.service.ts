@@ -69,4 +69,7 @@ key;
   getkey(){
     return this.key;
   }
+  updateUser(v){
+    this.user = v;
+  }
 }

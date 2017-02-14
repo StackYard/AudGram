@@ -1,9 +1,38 @@
 <div class="card">
   <div class="card-content">
-    <div>
-      <img [src]="dp" class="circle" alt="">
-      <a [routerLink]="['/index/profile/'+uid]"><b>{{fname}} {{lname}}</b></a>
+    <div class="input-field col s12">
+      <img [src]="dp" class="circle prefix" alt="" align="middle" style="margin-left: 2px">            
+      <a [routerLink]="['/index/profile/'+uid]" class="btn name-btn">
+      <b class="black-text">{{fname}} {{lname}}</b></a>
+      <!--<input type="button" class="btn name-btn" value="{{fname}} {{lname}}">-->
+      <br>
+      <a class="btn name-btn t grey-text">{{post.time}}</a>
     </div>
-    <p [outerHTML]="post.text | replaceLineBreaks"></p>
+    <div class="col s12">
+    <p [outerHTML]="post.text | replaceLineBreaks"></p>      
+    </div>
   </div>
+      <div class="card-content grey lighten-4 pc center">
+        <button (click)="onPlay()" class="btn-floating btn-large waves-effect waves-light red" *ngIf="!playing"><i class="material-icons">play_arrow</i></button>
+        <button (click)="onPause()" class="btn-floating btn-large waves-effect waves-light red" *ngIf="playing"><i class="material-icons">pause</i></button>
+        <button (click)="onStop()" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">stop</i></button>
+       
+    </div>
+    <div class="card-content nopm nr">
+      <button class="btn btn-wave" *ngIf="!isLiked" (click)="onLike()"><i class="material-icons left">thumb_up</i>Like</button>
+      <button class="btn btn-wave red-text" *ngIf="isLiked" (click)="onUnLike()"><i class="material-icons left">thumb_up</i><b>Like</b></button>
+      <button class="btn btn-wave" (click)="onCommentButton()"><i class="material-icons left">comment</i>Comment</button>
+    </div>
+    <div class="card-content nr" *ngIf="likeLength" style="padding-top: 5px; padding-bottom: 5px; border-bottom: 0.5px solid lightslategray">
+      <a>{{likeLength}} <span *ngIf="likeLength == 1">people</span><span *ngIf="likeLength > 1">peoples</span> like this</a>
+    </div>
+    <div class="card-content pc center" *ngIf="comment">
+       <div class="row">
+        <div class="input-field col s12">
+          <img class="circle prefix" [src]="dp" *ngIf="dp" style="width: 39px; height: 39px">
+          <input id="comment_input" type="text" class="validate" placeholder="Write Your Comment" autofocus>
+          <!--<label for="comment_input"></label>-->
+        </div>
+       </div>
+    </div>
 </div>
