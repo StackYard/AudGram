@@ -32,7 +32,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
     UserInfoComponent,
     PostComponent,
     CreatePostComponent,
-    ReplaceLineBreaks
+    ReplaceLineBreaks,
   ],
   imports: [
     BrowserModule,
