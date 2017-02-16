@@ -9,7 +9,7 @@ uid;
 key;
 newUser = false;
   constructor(private af: AngularFire, private router: Router) {
-    this.user =  {dp: '', dob: '', fname: '', lname: '', gender: '', email: '', $key: '', uid: ''};
+    // this.user = ;
     this.af.auth.subscribe((d) => {
       if (d){
         this.uid = d.uid;
@@ -22,6 +22,7 @@ newUser = false;
     }).subscribe((v) => {
       this.user = v[0];
       this.key = v[0].$key;
+      console.log(this.user)
     });
       }
     });

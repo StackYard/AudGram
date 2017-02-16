@@ -1,4 +1,4 @@
-      <nav class="white" *ngIf="us.getUid()">
+      <nav class="white" *ngIf="us.getUser()">
         
         <div class="nav-wrapper" *ngIf="!searchBar">
       <a href="#" class="brand-logo left">
@@ -51,7 +51,8 @@
         <div class="input-field">
           <input id="search" type="search" class="black white-text" required autofocus placeholder="Write your query here!">
           <label class="label-icon" for="search"><i class="material-icons white-text">search</i></label>
-          <i class="material-icons white-text" (click)="onSearchBarClose()">close</i>
+          <i class="material-icons white-text right" (click)="onSearchBarClose()" style="transform: rotate(90deg);">navigation</i>
+          <i class="material-icons white-text left" (click)="onSearchBarClose()" style="margin-right: 30px">close</i>
         </div>
       </form>
     </div>

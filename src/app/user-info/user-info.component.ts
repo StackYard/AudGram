@@ -15,6 +15,16 @@ export class UserInfoComponent implements OnInit {
   constructor(private us: UserService) { }
 
   ngOnInit() {
+    console.log(this.uid);
+    console.log(this.us.user);
+    
+    // setTimeout(
+    //   function(){
+        
+    //   },
+    //   10000
+    // )
+
   }
 
 }
