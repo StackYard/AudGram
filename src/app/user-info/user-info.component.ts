@@ -1,3 +1,4 @@
+import { UserService } from '../user.service';
 import {Component, OnInit, Input} from '@angular/core';
 
 @Component({
@@ -10,7 +11,8 @@ export class UserInfoComponent implements OnInit {
   @Input() email;
   @Input() fname;
   @Input() lname;
-  constructor() { }
+  @Input() uid;
+  constructor(private us: UserService) { }
 
   ngOnInit() {
   }

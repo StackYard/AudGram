@@ -1,3 +1,4 @@
+import { FirebaseObjectObservable } from 'angularfire2/database';
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AngularFire, FirebaseListObservable} from "angularfire2";
@@ -14,7 +15,7 @@ declare var Materialize;
 export class ProfileComponent implements OnInit, OnDestroy {
   uid;
   btn = false;
-  user = {dp: '', dob: '', fname:'', lname:'', gender: '', email: '', $key: '', uid:''};
+  user: any = {dp: '', dob: '', fname:'', lname:'', gender: '', email: '', $key: '', uid:''};
   // user;
   file;ext;ref;loader;key;
   posts: FirebaseListObservable<any[]>;
@@ -35,6 +36,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }).subscribe((v)=>{
         this.user = v[0];
         this.key = this.user.$key;
+        // console.log(this.user.$exists())
       });
       this.af.database.list(`/posts/${this.uid}`)
         .map((a)=> a.reverse())

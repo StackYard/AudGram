@@ -48,6 +48,7 @@ export class DpUploadComponent implements OnInit {
         this.loader = false;
       },
       ()=>{
+                this.us.updateNewUser(false);
       Materialize.toast('Completed');
         this.ref.getDownloadURL().then(url=>{
           console.log(url);

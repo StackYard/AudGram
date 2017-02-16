@@ -25,31 +25,12 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
-    // let Storage = storage();
-    // let storageRef = Storage.ref();
-    // let imgRef = storageRef.child('w.jpg');
-    // imgRef.getDownloadURL().then((url)=>{
-    //   console.log(url)
-    // })
-    //   .catch((err)=>{
-    //   console.log(err)
-    //   })
-    // // this.af.auth.login({email:'haziz@gmail.com', password: '123456'}).then(d=>{
-    //   this.us.updateUid(d.uid);
-    //   this.us.login(d.uid,'l');
-    //   // console.log(this.us.getkey())
-    //   // console.log(this.us.getkey())
-    //
-    // // })
-    // this.af.auth.subscribe((d)=>{
-    //   console.log(d);
-    //   this.us.login(d.uid, 'l');
-    // });
 
 
   }
 
   onRegister(x){
+    debugger;
     if(!x.fname){
            Materialize.toast("Error: Please Enter Your First Name", 1000, 'red');
 
@@ -62,8 +43,10 @@ export class SignupComponent implements OnInit {
     this.btn = false;
     this.af.auth.createUser({email:x.email, password: x.password}).then(()=>{
       this.af.auth.login({email:x.email, password: x.password}).then((d)=>{
-       this.af.database.list('/users').push({email: x.email, fname:x.fname,lname:x.lname, uid: d.uid});
+        this.us.updateNewUser(true);
+       this.af.database.list('/users').push({email: x.email, fname:x.fname,lname:x.lname, uid: d.uid}).then(()=>{
         this.us.login(d.uid,'/index/UploadProfilePicture');
+       });
       })
     })
       .catch(err=>{

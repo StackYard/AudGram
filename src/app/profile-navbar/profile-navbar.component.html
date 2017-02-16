@@ -2,6 +2,7 @@
         
         <div class="nav-wrapper" *ngIf="!searchBar">
       <a href="#" class="brand-logo left">
+          <a class="button-collapse black-text" style="margin-left: 0; margin-right: 5px" materialize="sideNav" [materializeParams]="[{edge:'left'}]" data-activates="slide-out"><i class="material-icons" style="margin-right: 0">error_outline</i></a>        
         <i class="material-icons prefix black-text" style="margin-right: 0;">play_arrow</i>
         <button class="btn-flat black-text" style="padding: 0; text-transform: none; font-weight: normal;"><b>A</b>ud<b>G</b>ram</button>
         </a>
@@ -17,12 +18,16 @@
         </div>
       </form>
       </li>-->
-        <li class="small-li"><a class="btn-floating btn-flat " (click)="onSearchBarOpen()"><i class="material-icons black-text">search</i></a></li>      
-        <li><a class='btn-flat large' href='#' style=" margin-right: 0; padding: 0"><img [src]="us.getUser().dp" class="circle p left" alt=""><b style="margin-left: 5px">{{us.getUser().fname}}</b></a></li>
-        <li class="small-li"><a href="" class="btn-floating btn-flat " ><i class="material-icons black-text">supervisor_account</i></a></li>
-        <li class="small-li"><a href="" class="btn-floating btn-flat "><i class="material-icons black-text">forum</i></a></li>
-        <li class="small-li"><a href="" class="btn-floating btn-flat " ><i class="material-icons black-text">language</i></a></li>
-        <li><a materialize="dropdown" [materializeParams]="[{constrainWidth:false,belowOrigin: true}]" class="dropdown btn-floating btn-flat " data-activates='settingMenu'><i class="material-icons black-text">settings</i></a>
+        <li class="small-li"><a materialize="tooltip" class="btn-floating btn-flat tooltipped" (click)="onSearchBarOpen()" data-position="bottom" data-delay="10" data-tooltip="Search"><i class="material-icons black-text">search</i></a></li>      
+        <li><a class='btn-flat large ' href='#' style=" margin-right: 0; padding: 0"><img [src]="us.getUser().dp" class="circle p left" alt=""><b style="margin-left: 5px; text-transform: none;">{{us.getUser().fname}}</b></a></li>
+        <li class=" small-li badge1"[attr.data-badge]="requests > 0 ? requests : null">
+          <a class=" btn-floating btn-flat " (click)="onFr()"><i class="material-icons black-text">supervisor_account</i></a>
+        </li>
+        <li class="small-li badge1" [attr.data-badge]="messages > 0 ? messages : null">
+          <a class="btn-floating btn-flat  " (click)="onMsg()"><i class="material-icons black-text">forum</i></a></li>
+        <li class="small-li badge1" [attr.data-badge]="notifications > 0 ? notifications : null">
+          <a class="btn-floating btn-flat " (click)="onNoti()"><i class="material-icons black-text">language</i></a></li>
+        <li><a materialize="dropdown" [materializeParams]="[{constrainWidth:false,belowOrigin: true}]" class=" dropdown btn-floating btn-flat " data-activates='settingMenu'><i class="material-icons black-text">settings</i></a>
               <div id='settingMenu' class='dropdown-content'>
       <!--<ul>
                    <li><a class="black-text">Settings</a></li>
@@ -56,3 +61,35 @@
           <input id="icon_prefix" type="text" placeholder="Write your query here!" class="validate">
           <!--<label for="icon_prefix">First Name</label>-->
 <!--</div>-->
+
+  <!--Requests-->
+  <div id="fr" class="modal" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="fr">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+  <!--message-->
+  
+    <div id="msg" class="modal" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="msg">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+  <!--Notification-->
+    <div id="noti" class="modal" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="noti">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>

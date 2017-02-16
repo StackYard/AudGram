@@ -1,3 +1,6 @@
+import { Router } from '@angular/router';
+import { UserService } from '../user.service';
+import { AngularFire } from 'angularfire2';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +9,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
-
-  constructor() { }
+  show = true;
+  constructor(private af: AngularFire, private us: UserService, private router: Router) { }
 
   ngOnInit() {
+    if(!this.us.getNewUser() && !this.us.getUid()){
+      console.log("welcome COmponent");
+          this.af.auth.subscribe((d) => {
+      if (d){
+        this.show = false;
+        this.us.updateUid(d.uid);
+            this.af.database.list('/users', {
+      query: {
+        orderByChild: 'uid',
+        equalTo: d.uid,
+        limitToFirst: 1
+      }
+    }).subscribe((v) => {
+      this.us.updateUser(v[0]);
+      this.us.updateKey(v[0].$key);
+      this.router.navigate(['/index/profile/'+this.us.getUid()]);
+    });
+      }
+    });
+    }
 
   }
 }

@@ -1,14 +1,21 @@
+import { MaterializeAction, MaterializeDirective } from 'angular2-materialize/dist';
 import { Router } from '@angular/router';
 import { AngularFire } from 'angularfire2';
 import { UserService } from '../user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-profile-navbar',
   templateUrl: './profile-navbar.component.html',
   styleUrls: ['./profile-navbar.component.css']
 })
 export class ProfileNavbarComponent implements OnInit {
+  fr = new EventEmitter<string|MaterializeAction>();
+  msg = new EventEmitter<string|MaterializeAction>();
+  noti = new EventEmitter<string|MaterializeAction>();
   searchBar = false;
+  requests = 0;
+  notifications = 0;
+  messages = 0;
   constructor(private us: UserService, private af: AngularFire, private router: Router) { }
   onSearchBarOpen(){
     this.searchBar = true;
@@ -24,6 +31,15 @@ export class ProfileNavbarComponent implements OnInit {
     this.router.navigate(['']);
     });
 
+  }
+  onFr(){
+    this.fr.emit({action: 'modal', params: ['open']});
+  }
+    onMsg(){
+    this.fr.emit({action: 'modal', params: ['open']});
+  }
+    onNoti(){
+    this.fr.emit({action: 'modal', params: ['open']});
   }
   ngOnInit() {
     // $('.tooltipped').tooltip({delay: 50});

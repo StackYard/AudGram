@@ -1,15 +1,37 @@
 import { Injectable } from '@angular/core';
-import {AngularFire, FirebaseListObservable} from "angularfire2";
-import {Router} from "@angular/router";
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class UserService {
 user ;
 uid;
 key;
-  constructor(private af:AngularFire, private router:Router) {
-    this.user =  {dp: '', dob: '', fname:'', lname:'', gender: '', email: '', $key: '', uid:''};
+newUser = false;
+  constructor(private af: AngularFire, private router: Router) {
+    this.user =  {dp: '', dob: '', fname: '', lname: '', gender: '', email: '', $key: '', uid: ''};
+    this.af.auth.subscribe((d) => {
+      if (d){
+        this.uid = d.uid;
+            this.af.database.list('/users', {
+      query: {
+        orderByChild: 'uid',
+        equalTo: d.uid,
+        limitToFirst: 1
+      }
+    }).subscribe((v) => {
+      this.user = v[0];
+      this.key = v[0].$key;
+    });
+      }
+    });
 
+}
+getNewUser(){
+  return this.newUser;
+}
+  updateNewUser(v){
+    this.newUser = v;
   }
   getUid(){
     return this.uid;
@@ -23,48 +45,25 @@ key;
   updateKey(x){
     this.key = x;
   }
-  login(u,url){
+  login(u, url){
+    if(!this.newUser && !this.uid){
+            console.log("User Service");
 
-    // this.af.database.object('uid/'+u).subscribe((v)=>{
-    //   this.key = v.key;
-    //   this.af.database.object('users/'+this.key).subscribe((val)=>{
-    //     this.user = val;
-    //     console.log(this.key);
-    //     console.log(this.user);
-    //     console.log(this.uid);
-    //     if(t == 's'){
-    //       this.router.navigate(['/index/UploadProfilePicture']);
-    //     }
-    //     else {
-    //
-    //       this.router.navigate(['/index/profile/'+this.key]);
-    //
-    //     }
-    //   })
-    //
-    // })
-    this.af.database.list('/users',{
+          this.af.database.list('/users', {
       query: {
         orderByChild: 'uid',
         equalTo: u,
         limitToFirst: 1
       }
-    }).subscribe((v)=>{
+    }).subscribe((v) => {
       this.user = v[0];
-      this.uid = this.user.uid;
-      this.key = this.user.$key;
-      console.log(v[0]);
+      this.uid = v[0].uid;
+      this.key = v[0].$key;
       this.router.navigate([url]);
 
-      // if(t == 's'){
-      //   this.router.navigate(['/index/UploadProfilePicture']);
-      // }
-      // else {
-      //
-      //   this.router.navigate(['/index/profile/'+this.key]);
-      //
-      // }
     });
+    }
+
   }
   getkey(){
     return this.key;
