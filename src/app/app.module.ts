@@ -20,6 +20,8 @@ import {ComponentService} from "./component.service";
 import { UserInfoComponent } from './user-info/user-info.component';
 import {PostComponent, ReplaceLineBreaks} from './post/post.component';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { FriendsComponent } from './friends/friends.component';
+import { ProfileNavbarComponent } from './profile-navbar/profile-navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +35,8 @@ import { CreatePostComponent } from './create-post/create-post.component';
     PostComponent,
     CreatePostComponent,
     ReplaceLineBreaks,
+    FriendsComponent,
+    ProfileNavbarComponent,
   ],
   imports: [
     BrowserModule,

@@ -20,9 +20,7 @@ export class SignupComponent implements OnInit {
       'fname': [''],
       'lname': [''],
       'email': [''],
-      'password': [''],
-      'dob': [''],
-      'gender':['']
+      'password': ['']
     })
   }
 
@@ -61,18 +59,10 @@ export class SignupComponent implements OnInit {
            Materialize.toast("Error: Please Enter Your Last Name", 1000, 'red');
            return;
     }
-    if(!x.gender){
-      Materialize.toast("Error: Please Select Your Gender", 1000, 'red');
-      return;
-    }
-    if(!x.dob){
-      Materialize.toast("Error: Please Enter Your Birthdate", 1000, 'red');
-      return;
-    }
     this.btn = false;
     this.af.auth.createUser({email:x.email, password: x.password}).then(()=>{
       this.af.auth.login({email:x.email, password: x.password}).then((d)=>{
-       this.af.database.list('/users').push({email: x.email, dob:x.dob,fname:x.fname,lname:x.lname,gender:x.gender, uid: d.uid});
+       this.af.database.list('/users').push({email: x.email, fname:x.fname,lname:x.lname, uid: d.uid});
         this.us.login(d.uid,'/index/UploadProfilePicture');
       })
     })

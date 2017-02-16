@@ -15,12 +15,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   uid;
   btn = false;
   user = {dp: '', dob: '', fname:'', lname:'', gender: '', email: '', $key: '', uid:''};
+  // user;
   file;ext;ref;loader;key;
   posts: FirebaseListObservable<any[]>;
   constructor(private ar: ActivatedRoute, private af: AngularFire, private cs: ComponentService, private us:UserService) {
     this.cs.updateFooter(false);
-    console.log(this.cs.getFooter());
-    this.ar.params.subscribe((p)=>{
+    
+
+  }
+  ngOnInit() {   
+        this.ar.params.subscribe((p)=>{
       this.uid = p['uid'];
       this.af.database.list('/users',{
         query: {
@@ -36,10 +40,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         .map((a)=> a.reverse())
         .subscribe(a=> {this.posts = a;});
     });
-  }
-  ngOnInit() {
-    console.log(this.us.getUid());
-    console.log(this.cs.getFooter());
 
   }
   ngOnDestroy(){

@@ -1,0 +1,58 @@
+      <nav class="white" *ngIf="us.getUid()">
+        
+        <div class="nav-wrapper" *ngIf="!searchBar">
+      <a href="#" class="brand-logo left">
+        <i class="material-icons prefix black-text" style="margin-right: 0;">play_arrow</i>
+        <button class="btn-flat black-text" style="padding: 0; text-transform: none; font-weight: normal;"><b>A</b>ud<b>G</b>ram</button>
+        </a>
+      <!--<a  href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons black-text">menu</i></a>-->
+      <ul id="mobile-demo" class="right">
+        <!--<li><a href="sass.html" materialize="dropdown" class='dropdown-button btn' href='#' data-activates='searchbar'><i class="material-icons">search</i></a></li>-->
+     <!--<li>
+      <form>
+        <div class="input-field" style="text-align: right;">
+          <i class="material-icons prefix black-text" for="icon_prefix">search</i>          
+          <input id="icon_prefix" type="text" placeholder="Write your query here!"  class="validate black-text" >
+
+        </div>
+      </form>
+      </li>-->
+        <li class="small-li"><a class="btn-floating btn-flat " (click)="onSearchBarOpen()"><i class="material-icons black-text">search</i></a></li>      
+        <li><a class='btn-flat large' href='#' style=" margin-right: 0; padding: 0"><img [src]="us.getUser().dp" class="circle p left" alt=""><b style="margin-left: 5px">{{us.getUser().fname}}</b></a></li>
+        <li class="small-li"><a href="" class="btn-floating btn-flat " ><i class="material-icons black-text">supervisor_account</i></a></li>
+        <li class="small-li"><a href="" class="btn-floating btn-flat "><i class="material-icons black-text">forum</i></a></li>
+        <li class="small-li"><a href="" class="btn-floating btn-flat " ><i class="material-icons black-text">language</i></a></li>
+        <li><a materialize="dropdown" [materializeParams]="[{constrainWidth:false,belowOrigin: true}]" class="dropdown btn-floating btn-flat " data-activates='settingMenu'><i class="material-icons black-text">settings</i></a>
+              <div id='settingMenu' class='dropdown-content'>
+      <!--<ul>
+                   <li><a class="black-text">Settings</a></li>
+              <li><a class="black-text">Logout</a></li>
+      </ul>-->
+      <a class="btn-flat" style="margin: 0; display: block; padding-left: 15px; padding-right: 15px;"><i class="material-icons left">settings</i>Settings</a>
+      <!--<br>-->
+      <a class="btn-flat" style="margin: 0; display: block; padding-left: 15px; padding-right: 15px;" (click)="onLogout()"><i class="material-icons left">call_missed</i>Logout</a>
+    </div>
+        </li>
+      </ul>
+
+    </div>
+
+            <!--<ul id='settingMenu' class='dropdown-content'>
+              <li><a class="waves-effect waves-light btn"><i class="material-icons left">settings</i>Settings</a></li>
+              <li><a class="waves-effect waves-light btn"><i class="material-icons left">all_missed</i>Logout</a></li>
+            </ul>-->
+        <div class="nav-wrapper" *ngIf="searchBar">
+      <form>
+        <div class="input-field">
+          <input id="search" type="search" class="black white-text" required autofocus placeholder="Write your query here!">
+          <label class="label-icon" for="search"><i class="material-icons white-text">search</i></label>
+          <i class="material-icons white-text" (click)="onSearchBarClose()">close</i>
+        </div>
+      </form>
+    </div>
+    </nav>  
+<!--<div id='searchbar' class='dropdown-content' style="width: auto">
+          <i class="material-icons prefix">search</i>
+          <input id="icon_prefix" type="text" placeholder="Write your query here!" class="validate">
+          <!--<label for="icon_prefix">First Name</label>-->
+<!--</div>-->

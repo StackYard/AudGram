@@ -4,10 +4,11 @@ import {Router} from "@angular/router";
 
 @Injectable()
 export class UserService {
-user;
+user ;
 uid;
 key;
   constructor(private af:AngularFire, private router:Router) {
+    this.user =  {dp: '', dob: '', fname:'', lname:'', gender: '', email: '', $key: '', uid:''};
 
   }
   getUid(){
@@ -52,8 +53,7 @@ key;
       this.user = v[0];
       this.uid = this.user.uid;
       this.key = this.user.$key;
-      console.log(this.uid);
-      console.log(this.user);
+      console.log(v[0]);
       this.router.navigate([url]);
 
       // if(t == 's'){

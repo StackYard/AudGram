@@ -1,0 +1,28 @@
+input.validate{
+    /*width: 100%;*/
+    margin-left: 0;
+
+}
+input.validate::-moz-placeholder{
+    color: black;
+}
+input.validate::-webkit-input-placeholder{
+    color: black;
+}
+.logo{
+    height: 100%;
+    width: 100px;
+}
+.p{
+    height: 36px;
+    width: 36px;
+}
+.small-li{
+    width: 45px;
+}
+#search::-moz-placeholder{
+    color: whitesmoke;
+}
+#search::-webkit-input-placeholder{
+    color: whitesmoke;    
+}

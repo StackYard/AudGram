@@ -26,24 +26,6 @@
             <label for="password">Password</label>
           </div>
         </div>
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <select name="selectedOption" materialize="material_select" [materializeSelectOptions]="selectOptions" [formControl]="form.controls['gender']" >
-              <option value="" disabled selected>Choose your gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-            <label>Gender</label>
-          </div>
-          <div class="col s12 m6 input-field">
-            <label for="birthdate">Birthdate</label>
-            <input id="birthdate"
-                   materialize="pickadate"
-                   [materializeParams]="[{selectMonths: true, selectYears:100, max: true}]"
-                   type="text" placeholder="Birthdate" [formControl]="form.controls['dob']"/>
-          </div>
-        </div>
-
           <div class="preloader-wrapper small active right" *ngIf="!btn">
             <div class="spinner-layer spinner-red-only">
               <div class="circle-clipper left">

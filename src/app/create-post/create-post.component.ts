@@ -18,7 +18,7 @@ export class CreatePostComponent implements OnInit {
   file;ext;ref;loader;
   @Input() key;
   constructor( private af: AngularFire, private cs: ComponentService, private us:UserService) {
-    console.log(this.uid, this.key, this.dp)
+    // console.log(this.uid, this.key, this.dp)
   }
   onFileChange(f){
     this.btn = true;
@@ -46,7 +46,7 @@ export class CreatePostComponent implements OnInit {
         },
         ()=>{
           this.ref.getDownloadURL().then((url)=>{
-            console.log(url);
+            // console.log(url);
 
             this.af.database.list('/posts/'+this.uid).push({text: ta.value, audio: url, time: date.getHours() + ":" + date.getMinutes() + " " + date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear()}).then(()=>{
               this.loader = false;
