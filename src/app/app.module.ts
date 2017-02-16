@@ -22,6 +22,7 @@ import {PostComponent, ReplaceLineBreaks} from './post/post.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { FriendsComponent } from './friends/friends.component';
 import { ProfileNavbarComponent } from './profile-navbar/profile-navbar.component';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { ProfileNavbarComponent } from './profile-navbar/profile-navbar.componen
     ReplaceLineBreaks,
     FriendsComponent,
     ProfileNavbarComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

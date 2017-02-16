@@ -13,7 +13,7 @@
     <!--<a class="btn-floating btn-large red">
       <i class="large material-icons">mode_edit</i>
     </a>-->
-    <ul class="horizontal right">
+    <ul class="horizontal right" *ngIf="uid == us.getUid()">
       <li><a class="d" (click)="onRemovePost(post.$key)"><i class="material-icons red-text optionBtn">delete</i></a></li>
       <!--<li *ngIf="!editMode"><a class="e" (click)="onEditMode()"><i class="material-icons blue-text optionBtn">mode_edit</i></a></li>
       <li *ngIf="editMode"><a class="e" (click)="onEditModeDisable()"><i class="material-icons red-text optionBtn">call_missed</i></a></li>-->
@@ -62,7 +62,7 @@
           <input type="range" id="test5" min="0" [max]="audio.duration" [value]="audio.currentTime" />
         </p>-->
     </div>
-    <div class="card-content nopm nr center">
+    <div class="card-content nopm nr center" *ngIf="us.getUid()">
       <button class="btn btn-wave" *ngIf="!isLiked" (click)="onLike()"><i class="material-icons left">thumb_up</i>Like</button>
       <button class="btn btn-wave red-text" *ngIf="isLiked" (click)="onUnLike()"><i class="material-icons left">thumb_up</i><b>Like</b></button>
       <button class="btn btn-wave" (click)="onCommentButton()"><i class="material-icons left">comment</i>Comment</button>      

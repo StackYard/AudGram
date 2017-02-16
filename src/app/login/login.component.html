@@ -1,21 +1,9 @@
 
 <div class="row" style="top: 50%; transform: translateY(25%)" >
     <div class="col s12 m2 l3"></div>
-    <form class="col s12 m8 l6 card r1  grey lighten-4" [formGroup]="form" materialize novalidate (ngSubmit)="onRegister(form.value)">
+    <form class="col s12 m8 l6 card r1  grey lighten-4" [formGroup]="form" materialize novalidate (ngSubmit)="onLogin(form.value)">
       <div class="card-content">
-        <span class="card-title center">Create an account</span>
-
-      <div class="row">
-        <div class="input-field col s12 m6">
-          <input id="first_name" type="text" class="validate" placeholder="First Name" [formControl]="form.controls['fname']">
-          <label for="first_name">First Name</label>
-        </div>
-        <div class="input-field col s12 m6">
-          <input id="last_name" type="text" class="validate" placeholder="Last Name" [formControl]="form.controls['lname']">
-          <label for="last_name">Last Name</label>
-        </div>
-      </div>
-
+        <span class="card-title center">Login</span>
       <div class="row">
         <div class="input-field col s12">
           <input id="email" type="email" class="validate" placeholder="something@example.com" [formControl]="form.controls['email']">
@@ -37,7 +25,7 @@
             </div>
           </div>
 
-        <button type="submit"  class="btn right waves-effect waves-light  " *ngIf="btn">Sign Up</button>
+        <button type="submit"  class="btn right waves-effect waves-light  " *ngIf="btn">Login</button>
   </div>
       </div>
   </form>

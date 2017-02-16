@@ -1,12 +1,19 @@
 <div class="my-container">
-  <nav class="no-opacity">
+  <nav class="no-opacity black">
+    <div class="container">
     <div class="nav-wrapper no-opacity">
-      <a href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html">Login</a></li>
-        <li><a href="badges.html">Create an account</a></li>
+          <a href="#" class="brand-logo left">
+        <i class="material-icons prefix" style="margin-right: 0;">play_arrow</i>
+        <button class="btn-flat white-text" style="padding: 0; text-transform: none; font-weight: normal;"><b>A</b>ud<b>G</b>ram</button>
+        </a>
+      <ul id="nav-mobile" class="right">
+        <li><a [routerLink]="['/login']">Login</a></li>
+        <li><a [routerLink]="['/register']">Create an account</a></li>
       </ul>
     </div>
+    </div>
   </nav>
-  <app-signup></app-signup>
+  <div class="container">
+  <router-outlet></router-outlet>
+  </div>
 </div>
