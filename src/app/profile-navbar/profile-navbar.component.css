@@ -43,3 +43,14 @@ input.validate::-webkit-input-placeholder{
    border-radius:50%;
    box-shadow:0 0 1px #333;
 }
+.navbar-fixed nav {
+  padding-right: 300px;
+  /*padding-right: -300px;*/
+}
+
+@media only screen and (max-width : 992px) {
+  .navbar-fixed nav {
+    padding-right: 0;
+    /*padding-right: 0;*/
+  }
+}

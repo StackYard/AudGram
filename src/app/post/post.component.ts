@@ -98,6 +98,9 @@ export class PostComponent implements OnInit {
   // }
   onRemovePost(key){
     this.af.database.list(`/posts/${this.uid}`).remove(key);
+    this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).remove()
+    this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).remove()
+    
   }
   // onUpdate(key,ta){
   //   console.log(ta);

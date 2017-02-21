@@ -66,8 +66,8 @@
       <button class="btn btn-wave" *ngIf="!isLiked" (click)="onLike()"><i class="material-icons left">thumb_up</i>Like</button>
       <button class="btn btn-wave red-text" *ngIf="isLiked" (click)="onUnLike()"><i class="material-icons left">thumb_up</i><b>Like</b></button>
       <button class="btn btn-wave" (click)="onCommentButton()"><i class="material-icons left">comment</i>Comment</button>      
-      <button class="btn btn-wave red-text" *ngIf="isFav" (click)="onFavorite()"><i class="material-icons left">star</i><b>Favorite</b></button>
-      <button class="btn btn-wave" *ngIf="!isFav" (click)="onFavorite()"><i class="material-icons left">star</i>Favorite</button>
+      <!--<button class="btn btn-wave red-text" *ngIf="isFav" (click)="onFavorite()"><i class="material-icons left">star</i><b>Favorite</b></button>
+      <button class="btn btn-wave" *ngIf="!isFav" (click)="onFavorite()"><i class="material-icons left">star</i>Favorite</button>-->
     </div>
     <div class="card-content nr" *ngIf="likeLength" style="padding-top: 5px; padding-bottom: 5px; border-bottom: 0.5px solid lightslategray">
       <a class="btn btn-wave a"><i class="material-icons tiny left">thumb_up</i>{{likeLength}} <span *ngIf="likeLength == 1">people</span><span *ngIf="likeLength > 1">peoples</span> like this</a>
