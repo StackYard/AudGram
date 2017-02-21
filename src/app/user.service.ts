@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 
 @Injectable()
 export class UserService {
-user = {dp :''} ;
+user:any = {dp :''} ;
 uid;
 key;
 newUser = false;
