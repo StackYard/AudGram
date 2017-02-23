@@ -34,6 +34,7 @@ export class PostComponent implements OnInit {
   isFav = false;
   comments;
   loader= false;
+  @Input() singlePost;
   constructor(private af:AngularFire, private us: UserService) {
     this.user = this.us.getUser();
   
@@ -59,14 +60,20 @@ export class PostComponent implements OnInit {
   }
   onLike(){
     this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).push({name: this.user.fname + " " + this.user.lname, uid: this.user.uid})
+    .then(()=>{
+      console.log("then");
+      if(this.uid != this.us.getUid()){
+        this.af.database.list(`/notifications/${this.uid}`).push({type: 'Like', by : this.us.getUid(), post: this.post.$key})  ;        
+      }
+    })
   }
   onUnLike(){
     this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).remove(this.isLiked.$key);
   }
   onCommentButton(){
       this.comment = true;
-    
-    this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`, {
+    if(!this.singlePost){
+          this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`, {
       query:{
         limitToLast : 3
       }
@@ -76,6 +83,16 @@ export class PostComponent implements OnInit {
       console.log(v);
       this.comments.reverse();
     });
+  }
+  else{
+        this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`)
+    .subscribe((v)=>{
+      this.comments = v;
+      console.log(v);
+      this.comments.reverse();
+    });
+  }
+
     
   }
   onComment(comment){
@@ -107,6 +124,7 @@ export class PostComponent implements OnInit {
   //   // this.af.database.list(`/posts/${this.uid}`).update(key,{text: ta.value})
   // }
   ngOnInit() {
+    console.log(this.post)
     this.audio = new Audio(this.post.audio);
      this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`,{
        query:{

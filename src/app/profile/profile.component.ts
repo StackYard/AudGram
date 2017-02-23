@@ -18,14 +18,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   user: any = {dp: '', dob: '', fname:'', lname:'', gender: '', email: '', $key: '', uid:''};
   // user;
   file;ext;ref;loader;key;
-  posts: FirebaseListObservable<any[]>;
+  posts:any[];
+  sPost: any;
+  cp;
+  sp;
   constructor(private ar: ActivatedRoute, private af: AngularFire, private cs: ComponentService, private us:UserService) {
     this.cs.updateFooter(false);
-    
 
   }
   ngOnInit() {   
-        this.ar.params.subscribe((p)=>{
+      this.ar.params.subscribe((p)=>{
       this.uid = p['uid'];
       this.af.database.list('/users',{
         query: {
@@ -38,9 +40,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.key = this.user.$key;
         // console.log(this.user.$exists())
       });
-      this.af.database.list(`/posts/${this.uid}`)
+      // this.af.database.list(`/posts/${this.uid}`)
+      //   .map((a)=> a.reverse())
+      //   .subscribe(a=> {this.posts = a;});
+      this.ar.queryParams.subscribe(p=>{
+        if(p['postId']){
+          this.cp = false;
+          console.log(p['postId']);
+        this.af.database.object(`/posts/${this.uid}/${p['postId']}`)
+        .subscribe((v)=>{
+          this.sPost = v;
+          console.log(v);
+          this.sp = true;
+        })    
+        }
+        else{
+          this.cp = true;          
+        this.af.database.list(`/posts/${this.uid}`)
         .map((a)=> a.reverse())
         .subscribe(a=> {this.posts = a;});
+          this.sp = false;        
+        }
+      })
     });
 
   }

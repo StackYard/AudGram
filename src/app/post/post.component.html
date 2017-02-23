@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" *ngIf="post.audio">
   <div class="card-content pt">
     <div class="input-field col s12">
       <img [src]="dp" class="circle prefix" alt="" align="middle" style="margin-left: 2px">            
@@ -6,7 +6,7 @@
       <b class="black-text">{{fname}} {{lname}}</b></a>
       <!--<input type="button" class="btn name-btn" value="{{fname}} {{lname}}">-->
       <br>
-      <a class="btn name-btn t grey-text">{{post.time}}</a>
+      <a class="btn name-btn t grey-text" [routerLink]="['/index/profile/'+uid]" [queryParams]="{postId: post.$key}"  >{{post.time}}</a>
              <!--<a  class=" btn-floating waves-effect waves-light right optionBtn" (click)="onCommentDelete(comment.$key)"><i class="material-icons tiny red-text">delete</i></a>
             <a  class=" btn-floating waves-effect waves-light right optionBtn" (click)="onCommentDelete(comment.$key)"><i class="material-icons tiny red-text">delete</i></a>-->
 <!--<div class="fixed-action-btn horizontal right">-->
