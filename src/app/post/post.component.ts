@@ -64,7 +64,7 @@ export class PostComponent implements OnInit {
     .then(()=>{
       console.log("then");
       if(this.uid != this.us.getUid()){
-        this.af.database.list(`/notifications/${this.uid}`).push({type: 'Like', by : this.us.getUid(), post: this.post.$key})  ;        
+        this.af.database.list(`/notifications/${this.uid}`).push({type: 'Like', by : this.us.getUid(), post: this.post.$key, state: 'unread'})  ;        
       }
     })
   }
