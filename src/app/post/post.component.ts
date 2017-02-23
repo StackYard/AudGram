@@ -34,6 +34,7 @@ export class PostComponent implements OnInit {
   isFav = false;
   comments;
   loader= false;
+  sc;
   @Input() singlePost;
   constructor(private af:AngularFire, private us: UserService) {
     this.user = this.us.getUser();
@@ -84,14 +85,15 @@ export class PostComponent implements OnInit {
       this.comments.reverse();
     });
   }
-  else{
-        this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`)
-    .subscribe((v)=>{
-      this.comments = v;
-      console.log(v);
-      this.comments.reverse();
-    });
-  }
+  // else{
+
+  //       this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`)
+  //   .subscribe((v)=>{
+  //     this.comments = v;
+  //     console.log(v);
+  //     this.comments.reverse();
+  //   });
+  // }
 
     
   }
@@ -138,5 +140,15 @@ export class PostComponent implements OnInit {
     this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).subscribe((v)=>{
       this.likeLength = v.length;
     });
+    if(this.singlePost){
+      this.comment = true;
+      
+              this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`)
+    .subscribe((v)=>{
+      this.comments = v;
+      console.log(v);
+      this.comments.reverse();
+    })
+  }
   }
 }

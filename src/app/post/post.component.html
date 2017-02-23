@@ -82,7 +82,7 @@
         </div>
        </div>
     </div>
-    <div *ngIf="comment">
+    <div *ngIf="comment" id="comments">
        <div class="card-content pc" *ngFor="let comment of comments" style="margin-bottom: 5px" [id]="comment.$key">
        <div class="row">
         <div class="input-field col s12" style="margin-top: 0">
@@ -92,8 +92,9 @@
             <br>
             <a class="btn name-btn t grey-text">{{comment.time}}</a>
             <a *ngIf="post.uid == comment.uid || comment.uid == us.getUid()" class=" btn-floating waves-effect waves-light right optionBtn" (click)="onCommentDelete(comment.$key)"><i class="material-icons tiny red-text">delete</i></a>
-            
+         
         </div>
+        
         <div class="col s12">
     <!--<span>
       {{post.text | replaceLineBreaks}}
@@ -106,6 +107,9 @@
           </div>
        </div>
     </div>
+       <div class="card-content grey lighten-5" style="padding:0;">
+              <a [routerLink]="['/index/profile/'+uid]" [queryParams]="{postId: post.$key}" class="btn btn-flat">See more comments...</a>
+            </div>
     </div>
      
 </div>
