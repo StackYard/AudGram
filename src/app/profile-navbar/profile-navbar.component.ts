@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFire } from 'angularfire2';
 import { UserService } from '../user.service';
 import { Component, EventEmitter, OnChanges, OnInit } from '@angular/core';
+declare let Materialize: any;
 @Component({
   selector: 'app-profile-navbar',
   templateUrl: './profile-navbar.component.html',
@@ -17,6 +18,7 @@ export class ProfileNavbarComponent implements OnInit, OnChanges {
   notifications = 0;
   messages = 0;
   listOfNoti: any[];
+  load = false;
   constructor(private us: UserService, private af: AngularFire, private router: Router) { }
   onSearchBarOpen(){
     this.searchBar = true;
@@ -67,6 +69,13 @@ export class ProfileNavbarComponent implements OnInit, OnChanges {
         this.notifications = 0;
       
       this.listOfNoti = v.reverse();
+      if(this.listOfNoti[0] && this.load){
+        if(this.listOfNoti[0].state === 'unread'){
+        Materialize.toast('<span class="black-text">'+JSON.stringify(this.listOfNoti[0])+'</span>', 5000, 'white')        
+        }
+      }
+      this.load = true;
+      
       v.filter((v)=>{
         return v.state == 'unread';
       })

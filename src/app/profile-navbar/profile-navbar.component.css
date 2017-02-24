@@ -50,10 +50,24 @@ input.validate::-webkit-input-placeholder{
   padding-right: 300px;
   /*padding-right: -300px;*/
 }
-
+.modal.bottom-sheet{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    /*max-width: 200%;*/
+    /*width: 0 !important;*/
+}
 @media only screen and (max-width : 992px) {
   .navbar-fixed nav {
     padding-right: 0;
     /*padding-right: 0;*/
   }
+  .modal.bottom-sheet{
+    width: 70%;      
+  }
+}
+@media only screen and (max-width : 550px){
+    .modal.bottom-sheet{
+        width: 100%;              
+      }
 }

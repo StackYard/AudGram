@@ -64,10 +64,10 @@ export class PostComponent implements OnInit {
   onLike(){
     let date = new Date();
     let time = date.getTime();
-    this.af.database.object(`/likes/${this.uid}/${this.post.$key}/like_${this.us.getUid()+'_'+time}`).set({name: this.us.getUser().fname + " " + this.us.getUser().lname, uid: this.us.getUser().uid, id : `like_${this.us.getUid()+'_'+time}`})
+    this.af.database.object(`/likes/${this.uid}/${this.post.$key}/${this.us.getUid()+'_'+time}`).set({name: this.us.getUser().fname + " " + this.us.getUser().lname, uid: this.us.getUser().uid, id : `${this.us.getUid()+'_'+time}`})
     .then(()=>{
       if(this.uid != this.us.getUid()){
-        this.af.database.object(`/notifications/${this.uid}/like_${this.us.getUid()+'_'+time}`).set({type: 'Like', by : this.us.getUid(), post: this.post.$key, state: 'unread'})  ;        
+        this.af.database.object(`/notifications/${this.uid}/${this.us.getUid()+'_'+time}`).set({type: 'Like', by : this.us.getUid(), post: this.post.$key, state: 'unread'})  ;        
       }
     })
   }
@@ -133,7 +133,7 @@ export class PostComponent implements OnInit {
       comment.value = "";
       if(this.uid != this.us.getUid()){
         // this.af.database.list(`/notifications/${this.uid}`).push({type: 'Comment', by : this.us.getUid(), post: this.post.$key, state: 'unread', commentId: this.us.getUid()+'_'+time})  ;        
-        this.af.database.object(`/notifications/${this.uid}/comment_${this.us.getUid()+'_'+time}`).set({type: 'Comment', by : this.us.getUid(), post: this.post.$key, state: 'unread', commentId: this.us.getUid()+'_'+time})
+        this.af.database.object(`/notifications/${this.uid}/${this.us.getUid()+'_'+time}`).set({type: 'Comment', by : this.us.getUid(), post: this.post.$key, state: 'unread', commentId: this.us.getUid()+'_'+time})
     }
     })
     }
@@ -162,7 +162,7 @@ export class PostComponent implements OnInit {
         
       }
       else{
-        this.af.database.list(`/notifications/${this.uid}`).remove("comment_"+comment.id).then(()=>{
+        this.af.database.list(`/notifications/${this.uid}`).remove(comment.id).then(()=>{
       this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).remove(comment.$key);                          
         });
       }
