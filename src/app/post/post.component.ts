@@ -1,3 +1,4 @@
+import { Data } from '@angular/router';
 import { MaterializeAction } from 'angular2-materialize/dist';
 import { UserService } from '../user.service';
 import { AngularFire } from 'angularfire2';
@@ -36,6 +37,7 @@ export class PostComponent implements OnInit {
   loader= false;
   sc;
   @Input() singlePost;
+  removeKey = '';
   constructor(private af:AngularFire, private us: UserService) {
     this.user = this.us.getUser();
   
@@ -60,16 +62,41 @@ export class PostComponent implements OnInit {
 
   }
   onLike(){
-    this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).push({name: this.user.fname + " " + this.user.lname, uid: this.user.uid})
+    let date = new Date();
+    let time = date.getTime();
+    this.af.database.object(`/likes/${this.uid}/${this.post.$key}/like_${this.us.getUid()+'_'+time}`).set({name: this.us.getUser().fname + " " + this.us.getUser().lname, uid: this.us.getUser().uid, id : `like_${this.us.getUid()+'_'+time}`})
     .then(()=>{
-      console.log("then");
       if(this.uid != this.us.getUid()){
-        this.af.database.list(`/notifications/${this.uid}`).push({type: 'Like', by : this.us.getUid(), post: this.post.$key, state: 'unread'})  ;        
+        this.af.database.object(`/notifications/${this.uid}/like_${this.us.getUid()+'_'+time}`).set({type: 'Like', by : this.us.getUid(), post: this.post.$key, state: 'unread'})  ;        
       }
     })
   }
   onUnLike(){
-    this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).remove(this.isLiked.$key);
+    // this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).remove(this.isLiked.$key)
+    // .then(()=>{
+    //     if(this.uid != this.us.getUid()){
+    //     this.af.database.list(`/notifications/${this.uid}`,{
+    //       query:{
+    //         orderByChild: 'by',
+    //         equalTo: this.us.getUid(),
+    //         limitToFirst: 1
+    //       }
+    //     }).subscribe((v)=>{
+    //        this.af.database.list(`/notifications/${this.uid}`).remove(v[0].$key);
+    //     })
+    //   }
+    // })
+
+      if(this.uid != this.us.getUid()){
+    this.af.database.list(`/notifications/${this.uid}`).remove(this.isLiked.id).then(()=>{
+    this.af.database.list(`/likes/${this.uid}/${this.post.$key}`).remove(this.isLiked.id);
+      
+    })   
+      }    
+      else{
+    this.af.database.list(`/likes/${this.uid}/${this.post.$key}`).remove(this.isLiked.id);
+        
+      }
   }
   onCommentButton(){
       this.comment = true;
@@ -81,7 +108,7 @@ export class PostComponent implements OnInit {
     })
     .subscribe((v)=>{
       this.comments = v;
-      console.log(v);
+
       this.comments.reverse();
     });
   }
@@ -99,15 +126,47 @@ export class PostComponent implements OnInit {
   }
   onComment(comment){
     let date = new Date;
-    if(comment.value){
-    this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).push({uid: this.us.getUid(), dp: this.us.getUser().dp, name: this.us.getUser().fname+" "+this.us.getUser().lname, comment: comment.value, time: date.getHours() + ":" + date.getMinutes() + " " + date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear()})
-    .then(()=>{
+    let time = date.getTime();
+    if(comment.value){      
+    this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).push({uid: this.us.getUid(), dp: this.us.getUser().dp, name: this.us.getUser().fname+" "+this.us.getUser().lname, comment: comment.value, time: date.getHours() + ":" + date.getMinutes() + " " + date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear(), id: this.us.getUid()+'_'+time})
+    .then((d)=>{
       comment.value = "";
+      if(this.uid != this.us.getUid()){
+        // this.af.database.list(`/notifications/${this.uid}`).push({type: 'Comment', by : this.us.getUid(), post: this.post.$key, state: 'unread', commentId: this.us.getUid()+'_'+time})  ;        
+        this.af.database.object(`/notifications/${this.uid}/comment_${this.us.getUid()+'_'+time}`).set({type: 'Comment', by : this.us.getUid(), post: this.post.$key, state: 'unread', commentId: this.us.getUid()+'_'+time})
+    }
     })
     }
   }
-  onCommentDelete(key){
-    this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).remove(key)
+  onCommentDelete(comment){
+    //   if(this.uid == this.us.getUid()){
+    //   this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).remove(comment.$key);        
+        
+    // }    
+    // else{
+    // this.af.database.list(`/notifications/${this.uid}`, {
+    //   query:{
+    //     orderByChild : 'commentId',
+    //     equalTo: comment.id,
+    //     limitToFirst: 1
+    //   }
+    // }).subscribe((v)=>{
+    //   // this.removeKey = v[0].$key;
+    //   this.af.database.list(`/notifications/${this.uid}`).remove(v[0].$key).then(()=>{
+    //   this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).remove(comment.$key);        
+    //   });
+    // })
+    // }
+      if(this.uid == this.us.getUid()){
+      this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).remove(comment.$key);        
+        
+      }
+      else{
+        this.af.database.list(`/notifications/${this.uid}`).remove("comment_"+comment.id).then(()=>{
+      this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).remove(comment.$key);                          
+        });
+      }
+    
   }
   // onEditMode(){
   //   this.editMode = true;
@@ -126,7 +185,7 @@ export class PostComponent implements OnInit {
   //   // this.af.database.list(`/posts/${this.uid}`).update(key,{text: ta.value})
   // }
   ngOnInit() {
-    console.log(this.post)
+
     this.audio = new Audio(this.post.audio);
      this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`,{
        query:{
@@ -142,11 +201,9 @@ export class PostComponent implements OnInit {
     });
     if(this.singlePost){
       this.comment = true;
-      
               this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`)
     .subscribe((v)=>{
       this.comments = v;
-      console.log(v);
       this.comments.reverse();
     })
   }

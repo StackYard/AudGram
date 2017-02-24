@@ -91,7 +91,7 @@
             <b class="black-text">{{comment.name}}</b></a>
             <br>
             <a class="btn name-btn t grey-text">{{comment.time}}</a>
-            <a *ngIf="post.uid == comment.uid || comment.uid == us.getUid()" class=" btn-floating waves-effect waves-light right optionBtn" (click)="onCommentDelete(comment.$key)"><i class="material-icons tiny red-text">delete</i></a>
+            <a *ngIf="post.uid == comment.uid || comment.uid == us.getUid()" class=" btn-floating waves-effect waves-light right optionBtn" (click)="onCommentDelete(comment)"><i class="material-icons tiny red-text">delete</i></a>
          
         </div>
         

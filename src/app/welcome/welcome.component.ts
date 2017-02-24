@@ -13,7 +13,7 @@ export class WelcomeComponent implements OnInit {
   constructor(private af: AngularFire, private us: UserService, private router: Router) { }
 
   ngOnInit() {
-    if(!this.us.getNewUser() && !this.us.getUid()){
+    if(!this.us.getUid()){
       console.log("welcome COmponent");
           this.af.auth.subscribe((d) => {
       if (d){
@@ -28,7 +28,14 @@ export class WelcomeComponent implements OnInit {
     }).subscribe((v) => {
       this.us.updateUser(v[0]);
       this.us.updateKey(v[0].$key);
-      this.router.navigate(['/index/profile/'+this.us.getUid()]);
+      // if(this.us.get)
+      if(this.us.getUser().dp){
+      this.router.navigate(['/index/profile/'+this.us.getUid()]);        
+    }
+    else{
+      this.router.navigate(['/index/UploadProfilePicture']);        
+      
+    }
     });
       }
     });

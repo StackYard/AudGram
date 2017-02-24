@@ -60,36 +60,22 @@ export class ProfileNavbarComponent implements OnInit, OnChanges {
 
     //     }
     //   }
-    //   bool()
-    console.log(this.us.getUid());      
+    //   bool()   
     
     this.af.database.list(`/notifications/${this.us.getUid()}`)
     .subscribe(v=>{
-      this.listOfNoti = v.reverse();
-      console.log(this.notifications);
-      v.filter((v)=>{
-        console.log(v, "asd");
         this.notifications = 0;
+      
+      this.listOfNoti = v.reverse();
+      v.filter((v)=>{
         return v.state == 'unread';
       })
       .map((v)=>{
         ++this.notifications;
       })
-      // for(let i = 0; i <= this.listOfNoti.length; i++){
-      //   console.log(this.listOfNoti[i].state);
-      // }
-    //       for(let i = 0; i <= this.listOfNoti.length; i++){
-    //     console.log('  0loop')
-      
-    //   if(this.listOfNoti[i].state == 'unread'){
-    //     this.notifications++;
-    //     console.log('1loop')
-    //   }
-    // }
     })
   }
   ngOnChanges(){
-        console.log('change')
     
 
 
