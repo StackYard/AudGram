@@ -23,6 +23,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { FriendsComponent } from './friends/friends.component';
 import { ProfileNavbarComponent } from './profile-navbar/profile-navbar.component';
 import { LoginComponent } from './login/login.component';
+import { NotificationItemComponent } from './notification-item/notification-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { LoginComponent } from './login/login.component';
     FriendsComponent,
     ProfileNavbarComponent,
     LoginComponent,
+    NotificationItemComponent,
   ],
   imports: [
     BrowserModule,

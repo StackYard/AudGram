@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import { AngularFire } from 'angularfire2';
 import { UserService } from '../user.service';
 import { Component, EventEmitter, OnChanges, OnInit } from '@angular/core';
+import {Observable} from 'rxjs/Rx';
+// import{Rx}
 declare let Materialize: any;
+declare let us: any;
 @Component({
   selector: 'app-profile-navbar',
   templateUrl: './profile-navbar.component.html',
@@ -44,7 +47,13 @@ export class ProfileNavbarComponent implements OnInit, OnChanges {
     onNoti(){
     this.noti.emit({action: 'modal', params: ['open']});
   }
+  go(){
+    // this.router.navigate(['']);
+    console.log("go");
+  }
+
   ngOnInit() {
+    var _This = this;
     // $('.tooltipped').tooltip({delay: 50});
     // console.log(this.us.getUser())
     //         let b = false;
@@ -63,7 +72,9 @@ export class ProfileNavbarComponent implements OnInit, OnChanges {
     //     }
     //   }
     //   bool()   
-    
+      function hello(){
+        alert("asd")
+  }
     this.af.database.list(`/notifications/${this.us.getUid()}`)
     .subscribe(v=>{
         this.notifications = 0;
@@ -71,7 +82,43 @@ export class ProfileNavbarComponent implements OnInit, OnChanges {
       this.listOfNoti = v.reverse();
       if(this.listOfNoti[0] && this.load){
         if(this.listOfNoti[0].state === 'unread'){
-        Materialize.toast('<span class="black-text">'+JSON.stringify(this.listOfNoti[0])+'</span>', 5000, 'white')        
+          console.log(this.listOfNoti[0]);
+             this.af.database.list('/users', {
+      query: {
+        orderByChild: 'uid',
+        equalTo: this.listOfNoti[0].by,
+        limitToFirst: 1
+      }
+    }).subscribe(v=>{
+      console.log(v);
+      if(this.listOfNoti[0].type === 'Like'){
+                        Materialize.toast(`
+                 
+        <div class="chip" id="${this.listOfNoti[0].$key}">
+    <img src="${v[0].dp}">
+    <b>${v[0].fname} ${v[0].lname}</b> liked your post.
+  </div>
+        ` ,5000, 'white notificationToast') 
+      }
+      else if(this.listOfNoti[0].type === 'Comment'){
+                        Materialize.toast(`
+                 
+        <div class="chip" id="${this.listOfNoti[0].$key}">
+    <img src="${v[0].dp}">
+    <b>${v[0].fname} ${v[0].lname}</b> commented on your post.
+  </div>
+        ` ,5000, 'white notificationToast') 
+      }
+var toast = document.getElementById(this.listOfNoti[0].$key);
+
+var source =  Observable.fromEvent(toast, 'click');
+
+var subscription = source.subscribe(function (e) {
+  _This.router.navigate(['/index/profile/'+_This.us.getUid()+'/'], {queryParams: {postId: _This.listOfNoti[0].post}})
+  // alert("asd");
+});
+    
+    })     
         }
       }
       this.load = true;

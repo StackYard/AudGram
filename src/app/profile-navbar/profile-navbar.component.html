@@ -20,12 +20,12 @@
       </form>
       </li>-->
         <li class="small-li"><a materialize="tooltip" class="btn-floating btn-flat tooltipped" (click)="onSearchBarOpen()" data-position="bottom" data-delay="10" data-tooltip="Search"><i class="material-icons black-text">search</i></a></li>      
-        <li><a class='btn-flat large ' href='#' style=" margin-right: 0; padding: 0"><img [src]="us.getUser().dp" class="circle p left" alt=""><b style="margin-left: 5px; text-transform: none;">{{us.getUser().fname}}</b></a></li>
+        <li><a class='btn-flat large ' [routerLink]="['/index/profile/'+us.getUid()+'/']" style=" margin-right: 0; padding: 0"><img [src]="us.getUser().dp" class="circle p left" alt=""><b style="margin-left: 5px; text-transform: none;">{{us.getUser().fname}}</b></a></li>
         <!--<li class=" small-li badge1"[attr.data-badge]="requests > 0 ? requests : null">
           <a class=" btn-floating btn-flat " (click)="onFr()"><i class="material-icons black-text">supervisor_account</i></a>
         </li>-->
-        <li class="small-li badge1" [attr.data-badge]="messages > 0 ? messages : null">
-          <a class="btn-floating btn-flat  " (click)="onMsg()"><i class="material-icons black-text">forum</i></a></li>
+        <!--<li class="small-li badge1" [attr.data-badge]="messages > 0 ? messages : null">
+          <a class="btn-floating btn-flat  " (click)="onMsg()"><i class="material-icons black-text">forum</i></a></li>-->
         <li class="small-li badge1" [attr.data-badge]="notifications > 0 ? notifications : null">
           <a class="btn-floating btn-flat " (click)="onNoti()"><i class="material-icons black-text">language</i></a></li>
         <li><a materialize="dropdown" [materializeParams]="[{constrainWidth:false,belowOrigin: true}]" class=" dropdown btn-floating btn-flat " data-activates='settingMenu'><i class="material-icons black-text">arrow_drop_down</i></a>
@@ -34,7 +34,7 @@
                    <li><a class="black-text">Settings</a></li>
               <li><a class="black-text">Logout</a></li>
       </ul>-->
-      <a class="btn-flat" style="margin: 0; display: block; padding-left: 15px; padding-right: 15px;"><i class="material-icons left">settings</i>Settings</a>
+      <!--<a class="btn-flat" style="margin: 0; display: block; padding-left: 15px; padding-right: 15px;"><i class="material-icons left">settings</i>Settings</a>-->
       <!--<br>-->
       <a class="btn-flat" style="margin: 0; display: block; padding-left: 15px; padding-right: 15px;" (click)="onLogout()"><i class="material-icons left">call_missed</i>Logout</a>
     </div>
@@ -51,9 +51,10 @@
       <form>
         <div class="input-field">
           <input id="search" type="search" class="black white-text" required autofocus placeholder="Write your query here!">
-          <label class="label-icon" for="search"><i class="material-icons white-text">search</i></label>
-          <i class="material-icons white-text right" (click)="onSearchBarClose()" style="transform: rotate(90deg);">navigation</i>
-          <i class="material-icons white-text left" (click)="onSearchBarClose()" style="margin-right: 30px">close</i>
+          <label class="label-icon">
+          <i class="material-icons white-text left" (click)="onSearchBarClose()" style="cursor: pointer;">close</i>
+            </label>
+          <i class="material-icons white-text right" style="transform: rotate(90deg);">navigation</i>
         </div>
       </form>
     </div>
@@ -78,6 +79,7 @@
   <!--message-->
   
     <div id="msg" class="modal bottom-sheet" style="max-height: 100vx; min-height: 80vh" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="msg">
+
     <div class="modal-content">
       
     </div>
@@ -87,11 +89,20 @@
   </div>
   <!--Notification-->
     <div id="noti" class="modal bottom-sheet" style="max-height: 100vx; min-height: 80vh" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="noti">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
+          <nav class="white">
+            
+    <div class="nav-wrapper">
+      <a  class="brand-logo black-text left" style="margin-left: 20px;">Notifications</a>
+      <ul id="nav-mobile" class="right">
+        <li style=""><a class="btn-floating btn-flat modal-action modal-close"><i class="material-icons black-text">close</i></a></li>
+      </ul>
     </div>
-    <div class="modal-footer">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  
+  </nav>
+    <div class="modal-content" *ngIf="listOfNoti">
+      <app-notification-item *ngFor="let notification of listOfNoti"
+      [notification]="notification"
+      ></app-notification-item>
     </div>
   </div>
+  <!--<div id="toast-container"></div>-->
