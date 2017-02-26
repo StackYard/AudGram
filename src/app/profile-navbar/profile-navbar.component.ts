@@ -1,8 +1,10 @@
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { MaterializeAction, MaterializeDirective } from 'angular2-materialize/dist';
 import { Router } from '@angular/router';
 import { AngularFire } from 'angularfire2';
 import { UserService } from '../user.service';
-import { Component, EventEmitter, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnInit, Input } from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 // import{Rx}
 declare let Materialize: any;
@@ -13,6 +15,9 @@ declare let us: any;
   styleUrls: ['./profile-navbar.component.css']
 })
 export class ProfileNavbarComponent implements OnInit, OnChanges {
+  @Input() search;
+  @Input() isFullWidth;
+  @Input() dpUploader;
   fr = new EventEmitter<string|MaterializeAction>();
   msg = new EventEmitter<string|MaterializeAction>();
   noti = new EventEmitter<string|MaterializeAction>();
@@ -22,7 +27,19 @@ export class ProfileNavbarComponent implements OnInit, OnChanges {
   messages = 0;
   listOfNoti: any[];
   load = false;
-  constructor(private us: UserService, private af: AngularFire, private router: Router) { }
+  form;
+  pro ;
+  constructor(private us: UserService, private af: AngularFire, private router: Router, private ar: ActivatedRoute, private fb: FormBuilder) { 
+
+  }
+  getStyle(){
+    if(this.isFullWidth){
+      return '0'
+    }
+    else{
+      return '300px'
+    }
+  }
   onSearchBarOpen(){
     this.searchBar = true;
   }
@@ -34,7 +51,8 @@ export class ProfileNavbarComponent implements OnInit, OnChanges {
       this.us.updateKey(undefined);
     this.us.updateUid(undefined);
     this.us.updateUser(undefined);
-    this.router.navigate(['']);
+    // this.router.navigate(['']);
+    window.location.pathname = '';
     });
 
   }
@@ -53,6 +71,9 @@ export class ProfileNavbarComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    if(this.search){
+      this.searchBar = true;
+    }
     var _This = this;
     // $('.tooltipped').tooltip({delay: 50});
     // console.log(this.us.getUser())
@@ -130,6 +151,25 @@ var subscription = source.subscribe(function (e) {
         ++this.notifications;
       })
     })
+
+    //AR
+    this.ar
+    .queryParams.subscribe(param => {
+      if(param['query']){
+        this.pro = true;
+                this.form = this.fb.group({
+      'query': [decodeURIComponent(param['query'])]
+    })
+
+      } else{
+        this.form = this.fb.group({
+      'query': ['']
+    })
+      }
+    })
+  }
+  onSearch(val){
+    this.router.navigate(['/index/search'], {queryParams: {query: val.query}})
   }
   ngOnChanges(){
     

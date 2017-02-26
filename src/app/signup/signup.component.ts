@@ -25,12 +25,16 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
+        if(this.us.getUid()){
+      // alert('login');
+      this.router.navigate(["/index/profile/"+this.us.getUid()]);
+
+    }
 
 
   }
 
   onRegister(x){
-
     if(!x.fname){
            Materialize.toast("Error: Please Enter Your First Name", 1000, 'red');
 
@@ -45,7 +49,7 @@ export class SignupComponent implements OnInit {
       this.af.auth.login({email:x.email, password: x.password}).then((d)=>{
         this.us.updateNewUser(true);
         console.log(this.us.getNewUser());
-       this.af.database.list('/users').push({email: x.email, fname:x.fname,lname:x.lname, uid: d.uid}).then(()=>{
+       this.af.database.list('/users').push({email: x.email, fname: x.fname,lname: x.lname, uid: d.uid, dp: `../../images/dp.png`, fullName: x.fname + ' '+ x.lname}).then(()=>{
         this.us.login(d.uid,'/index/UploadProfilePicture');
        });
       })

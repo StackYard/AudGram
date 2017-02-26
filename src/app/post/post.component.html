@@ -1,7 +1,7 @@
 <div class="card" *ngIf="post.audio">
   <div class="card-content pt">
     <div class="input-field col s12">
-      <img [src]="dp" class="circle prefix" alt="" align="middle" style="margin-left: 2px">            
+      <img [src]="dp" class="circle prefix" alt="" align="middle" style="margin-left: 2px" *ngIf="dp">            
       <a [routerLink]="['/index/profile/'+uid]" class="btn name-btn">
       <b class="black-text">{{fname}} {{lname}}</b></a>
       <!--<input type="button" class="btn name-btn" value="{{fname}} {{lname}}">-->
@@ -72,7 +72,7 @@
     <div class="card-content nr" *ngIf="likeLength" style="padding-top: 5px; padding-bottom: 5px; border-bottom: 0.5px solid lightslategray">
       <a class="btn btn-wave a"><i class="material-icons tiny left">thumb_up</i>{{likeLength}} <span *ngIf="likeLength == 1">people</span><span *ngIf="likeLength > 1">peoples</span> like this</a>
     </div>
-    <div class="card-content pc center" *ngIf="comment">
+    <div class="card-content pc center" *ngIf="comment && us.getUid()">
        <div class="row">
         <div class="input-field col s12">
           <img class="circle prefix" [src]="dp" *ngIf="dp" style="width: 39px; height: 39px">
@@ -82,7 +82,7 @@
         </div>
        </div>
     </div>
-    <div *ngIf="comment" id="comments">
+    <div *ngIf="comment  && us.getUid()" id="comments">
        <div class="card-content pc" *ngFor="let comment of comments" style="margin-bottom: 5px" [id]="comment.$key">
        <div class="row">
         <div class="input-field col s12" style="margin-top: 0">
@@ -107,7 +107,7 @@
           </div>
        </div>
     </div>
-       <div class="card-content grey lighten-5" style="padding:0;">
+       <div class="card-content grey lighten-5" style="padding:0;" *ngIf="moreCommentBtn">
               <a [routerLink]="['/index/profile/'+uid]" [queryParams]="{postId: post.$key}" class="btn btn-flat">See more comments...</a>
             </div>
     </div>

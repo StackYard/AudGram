@@ -11,3 +11,6 @@ body{
   background-color: transparent !important;
   cursor: pointer;
 }
+app-search .indicator{
+  background-color: black !important;
+}

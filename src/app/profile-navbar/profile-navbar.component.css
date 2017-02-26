@@ -65,9 +65,16 @@ input.validate::-webkit-input-placeholder{
   .modal.bottom-sheet{
     width: 70%;      
   }
+        .padding-right{
+    padding-right: 0;
+}
 }
 @media only screen and (max-width : 550px){
     .modal.bottom-sheet{
         width: 100%;              
       }
+
+}
+.padding-right{
+    padding-right: 0 !important;
 }

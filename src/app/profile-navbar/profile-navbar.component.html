@@ -1,6 +1,6 @@
       <div class="navbar-fixed">
-      <nav class="white" *ngIf="us.getUser().dp">
-        
+      <nav class="white" *ngIf="us.getUser().dp" [class.padding-right]="search || dpUploader">
+        <div [class.container]="isFullWidth">
         <div class="nav-wrapper" *ngIf="!searchBar">
       <a href="#" class="brand-logo left">
           <a class="button-collapse black-text" style="margin-left: 0; margin-right: 5px" materialize="sideNav" [materializeParams]="[{edge:'left'}]" data-activates="slide-out"><i class="material-icons" style="margin-right: 0">error_outline</i></a>        
@@ -42,19 +42,20 @@
       </ul>
 
     </div>
+    </div>
 
             <!--<ul id='settingMenu' class='dropdown-content'>
               <li><a class="waves-effect waves-light btn"><i class="material-icons left">settings</i>Settings</a></li>
               <li><a class="waves-effect waves-light btn"><i class="material-icons left">all_missed</i>Logout</a></li>
             </ul>-->
         <div class="nav-wrapper" *ngIf="searchBar">
-      <form>
+      <form [formGroup]="form" (ngSubmit)="onSearch(form.value)">
         <div class="input-field">
-          <input id="search" type="search" class="black white-text" required autofocus placeholder="Write your query here!">
+          <input [formControl]="form.controls['query']" id="search" type="search" class="black white-text" required autofocus placeholder="Write your query here!" #query>
           <label class="label-icon">
           <i class="material-icons white-text left" (click)="onSearchBarClose()" style="cursor: pointer;">close</i>
             </label>
-          <i class="material-icons white-text right" style="transform: rotate(90deg);">navigation</i>
+          <i class="material-icons white-text right" (click)="onSearch(form.value)">search</i>
         </div>
       </form>
     </div>

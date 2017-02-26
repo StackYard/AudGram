@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { AngularFire } from 'angularfire2';
 import { FormBuilder } from '@angular/forms';
@@ -11,7 +12,7 @@ declare var Materialize: any;
 export class LoginComponent implements OnInit {
   form;
   btn = true;
-  constructor( private fb: FormBuilder, private af: AngularFire, private us: UserService) {
+  constructor( private fb: FormBuilder, private af: AngularFire, private us: UserService, private router: Router) {
         this.form = fb.group({
       'email': [''],
       'password': ['']
@@ -27,6 +28,11 @@ export class LoginComponent implements OnInit {
      });
    }
   ngOnInit() {
+    if(this.us.getUid()){
+      // alert('login');
+      this.router.navigate(["/index/profile/"+this.us.getUid()]);
+
+    }
   }
 
 }

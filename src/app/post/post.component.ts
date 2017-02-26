@@ -1,4 +1,4 @@
-import { Data } from '@angular/router';
+import { Data, ActivatedRoute } from '@angular/router';
 import { MaterializeAction } from 'angular2-materialize/dist';
 import { UserService } from '../user.service';
 import { AngularFire } from 'angularfire2';
@@ -22,10 +22,10 @@ export class PostComponent implements OnInit {
 
   user;
   @Input() post;
-  @Input() fname;
-  @Input() lname;
+ fname;
+ lname;
   @Input() uid;
-  @Input() dp;
+  dp;
   editMode = false;
   audio ;
   playing = false;
@@ -36,9 +36,10 @@ export class PostComponent implements OnInit {
   comments;
   loader= false;
   sc;
+  moreCommentBtn = true;
   @Input() singlePost;
   removeKey = '';
-  constructor(private af:AngularFire, private us: UserService) {
+  constructor(private af:AngularFire, private us: UserService, private ar: ActivatedRoute) {
     this.user = this.us.getUser();
   
   }
@@ -176,6 +177,7 @@ export class PostComponent implements OnInit {
   // }
   onRemovePost(key){
     this.af.database.list(`/posts/${this.uid}`).remove(key);
+    this.af.database.list(`/search/`).remove(key);
     this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).remove()
     this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).remove()
     
@@ -184,8 +186,27 @@ export class PostComponent implements OnInit {
   //   console.log(ta);
   //   // this.af.database.list(`/posts/${this.uid}`).update(key,{text: ta.value})
   // }
-  ngOnInit() {
 
+
+  ngOnInit() {
+    if(this.uid){
+      this.af.database.list('/users/',{
+        query: {
+          orderByChild : 'uid',
+          equalTo : this.uid
+        }
+      }).subscribe((v)=>{
+        this.fname = v[0].fname;
+        this.lname = v[0].lname;
+        this.dp = v[0].dp
+        console.log(v[0], this.dp)
+      })
+    }
+        this.ar.queryParams.subscribe(p=>{
+        if(p['postId']){
+          this.moreCommentBtn = false
+        }
+        })
     this.audio = new Audio(this.post.audio);
      this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`,{
        query:{

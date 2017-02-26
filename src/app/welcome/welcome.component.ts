@@ -29,7 +29,7 @@ export class WelcomeComponent implements OnInit {
       this.us.updateUser(v[0]);
       this.us.updateKey(v[0].$key);
       // if(this.us.get)
-      if(this.us.getUser().dp){
+      if(this.us.getUser().dp !== '../../images/dp.png'){
       this.router.navigate(['/index/profile/'+this.us.getUid()]);        
     }
     else{

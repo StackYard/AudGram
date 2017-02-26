@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   sPost: any;
   cp;
   sp;
+  bool = false;
   constructor(private ar: ActivatedRoute, private af: AngularFire, private cs: ComponentService, private us:UserService) {
     this.cs.updateFooter(false);
 

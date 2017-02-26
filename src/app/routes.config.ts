@@ -1,3 +1,4 @@
+import { SearchComponent } from './search/search.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import {Routes} from '@angular/router';
@@ -15,10 +16,10 @@ export const routes: Routes = [
     {path: 'signup', component : SignupComponent},
     {path: 'register', component: SignupComponent}
   ]},
-  {path: ':uid', redirectTo: 'index/profile/:uid', pathMatch: 'full'},
   {path: 'profile/:uid', redirectTo: 'index/profile/:uid', pathMatch: 'full'},
   {path: 'index', component: HomeComponent, children:
     [
+      {path: 'search', component: SearchComponent},      
       {path: 'UploadProfilePicture', component: DpUploadComponent},
       {path: 'profile/:uid', component: ProfileComponent},
       // {path: 'profile', redirectTo:'profile/:uid', pathMatch:'full'},

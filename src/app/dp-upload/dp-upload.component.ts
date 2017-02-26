@@ -12,24 +12,49 @@ declare var Materialize: any;
 })
 export class DpUploadComponent implements OnInit {
   file;
-  ext;
+  ext: string;
   ref;
   time:any= new Date();
   btn = false;
   loader = false;
+  bool =true;
   constructor(private us: UserService, private af: AngularFire, private router: Router) {
     this.time = this.time.getTime();
   }
 
   ngOnInit() {
   }
-  onChange(f:HTMLInputElement){
-
+  onChange(f:HTMLInputElement, e:HTMLImageElement){
+  
+    this.file = f.files[0];
+    this.ext = this.file.name.split('.');
+    this.ext = this.ext[this.ext.length-1];
+    if(this.ext.toLowerCase() === 'png' || this.ext.toLowerCase() === 'jpg'){
     this.btn = true;
     this.file = f.files[0];
     this.ext = this.file.name.split('.');
     this.ext = this.ext[this.ext.length-1];
     this.ref = storage().ref(this.us.getUid() +'/images/'+this.us.getUid()+"_"+this.time+'.'+this.ext);
+    // base64
+       
+            var fr = new FileReader();
+            fr.onload = function(){
+               e.src = fr.result;
+            }
+            if (this.file){
+                fr.readAsDataURL(this.file)
+            }
+        
+  }
+  else{
+    e.src = this.us.getUser().dp;
+    this.btn = false;    
+    f = null;
+    this.file = undefined;
+    this.ext = undefined;
+    Materialize.toast('ERROR: Unsupported file. Only "PNG" and "JPG" format file supported', 4000, 'red');
+  }
+
     // console.log(this.file);
     // console.log(this.ext);
     // console.log(this.ref);
@@ -40,16 +65,14 @@ export class DpUploadComponent implements OnInit {
     let task = this.ref.put(this.file);
     task.on('state_changed',
       (snap)=>{
-      Materialize.toast(((snap.bytesTransferred / snap.totalBytes) * 100)+'%');
     },
       (err) =>{
-        Materialize.toast(err,4000);
+        Materialize.toast(err,4000, 'red');
         this.btn = true;
         this.loader = false;
       },
       ()=>{
                 this.us.updateNewUser(false);
-      Materialize.toast('Completed');
         this.ref.getDownloadURL().then(url=>{
           console.log(url);
         });

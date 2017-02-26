@@ -24,6 +24,8 @@ import { FriendsComponent } from './friends/friends.component';
 import { ProfileNavbarComponent } from './profile-navbar/profile-navbar.component';
 import { LoginComponent } from './login/login.component';
 import { NotificationItemComponent } from './notification-item/notification-item.component';
+import { SearchComponent } from './search/search.component';
+import { UserItemComponent } from './user-item/user-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,8 @@ import { NotificationItemComponent } from './notification-item/notification-item
     ProfileNavbarComponent,
     LoginComponent,
     NotificationItemComponent,
+    SearchComponent,
+    UserItemComponent,
   ],
   imports: [
     BrowserModule,
