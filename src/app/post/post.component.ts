@@ -1,3 +1,4 @@
+import { storage } from 'firebase';
 import { Data, ActivatedRoute } from '@angular/router';
 import { MaterializeAction } from 'angular2-materialize/dist';
 import { UserService } from '../user.service';
@@ -180,7 +181,22 @@ export class PostComponent implements OnInit {
     this.af.database.list(`/search/`).remove(key);
     this.af.database.list(`/comments/${this.uid}/${this.post.$key}/`).remove()
     this.af.database.list(`/likes/${this.uid}/${this.post.$key}/`).remove()
-    
+    this.af.database.list('/notifications/'+this.uid+ '/', {
+      query:{
+        orderByChild: 'post',
+        equalTo : key
+      }
+    }).subscribe(v=>{
+      v.map((val)=>{
+        console.log(val);
+        this.af.database.list('notifications/'+this.uid).remove(val.$key);
+      })
+    })
+    let filename = decodeURIComponent(this.post.audio).split('/')[9].split('?')[0];
+    // storage().ref(``).child(`${this.uid}/posts`).delete(filename)
+    let ref = storage().ref();
+    ref.child(this.uid + '/posts/'+ filename).delete()
+    console.log(decodeURIComponent(this.post.audio).split('/')[9].split('?')[0])
   }
   // onUpdate(key,ta){
   //   console.log(ta);

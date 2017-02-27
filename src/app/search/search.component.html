@@ -8,7 +8,7 @@
       </ul>
     </div>
     <div id="test1" class="col s12" style="display: block" *ngIf="tab == 'people'">
-      <div class="col s12 l3 m4" *ngFor=" let peep of people">
+      <div class="col s12 l3 m6" *ngFor=" let peep of people">
       <app-user-item
       [fullName]="peep.fullName"
       [dp]="peep.dp"

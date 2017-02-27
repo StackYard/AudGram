@@ -14,7 +14,7 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit() {
     if(!this.us.getUid()){
-      console.log("welcome COmponent");
+      // console.log("welcome COmponent");
           this.af.auth.subscribe((d) => {
       if (d){
         this.show = false;
@@ -28,14 +28,16 @@ export class WelcomeComponent implements OnInit {
     }).subscribe((v) => {
       this.us.updateUser(v[0]);
       this.us.updateKey(v[0].$key);
+      console.log(v[0].$key)
       // if(this.us.get)
       if(this.us.getUser().dp !== '../../images/dp.png'){
       this.router.navigate(['/index/profile/'+this.us.getUid()]);        
     }
-    else{
-      this.router.navigate(['/index/UploadProfilePicture']);        
+    // else{
+    //   this.router.navigate(['/index/UploadProfilePicture']);         
+          
       
-    }
+    // }
     });
       }
     });

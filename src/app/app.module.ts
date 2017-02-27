@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {HashLocationStrategy, Location, LocationStrategy} from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -55,7 +56,7 @@ import { UserItemComponent } from './user-item/user-item.component';
     AngularFireModule.initializeApp(firebaseConfig, authConfig),
     MaterializeModule
   ],
-  providers: [UserService, ComponentService],
+  providers: [UserService, ComponentService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

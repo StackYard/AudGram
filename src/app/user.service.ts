@@ -22,7 +22,7 @@ newUser = false;
     }).subscribe((v) => {
       this.user = v[0];
       this.key = v[0].$key;
-      console.log(this.user)
+      // console.log(this.user)
     });
       }
     });
@@ -47,8 +47,8 @@ getNewUser(){
     this.key = x;
   }
   login(u, url){
-    if(!this.newUser && !this.uid){
-            console.log("User Service");
+    // if(!this.newUser && !this.uid){
+            // console.log("User Service");
 
           this.af.database.list('/users', {
       query: {
@@ -65,7 +65,7 @@ getNewUser(){
     });
     }
 
-  }
+// }
   getkey(){
     return this.key;
   }

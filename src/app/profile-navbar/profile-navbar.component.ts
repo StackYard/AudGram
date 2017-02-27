@@ -51,8 +51,10 @@ export class ProfileNavbarComponent implements OnInit, OnChanges {
       this.us.updateKey(undefined);
     this.us.updateUid(undefined);
     this.us.updateUser(undefined);
-    // this.router.navigate(['']);
-    window.location.pathname = '';
+    this.router.navigate(['']).then(()=>{
+      location.reload();
+    });
+    // window.location.pathname = '';
     });
 
   }
@@ -135,6 +137,8 @@ var toast = document.getElementById(this.listOfNoti[0].$key);
 var source =  Observable.fromEvent(toast, 'click');
 
 var subscription = source.subscribe(function (e) {
+    _This.af.database.object(`/notifications/${_This.us.getUid()}/${_This.listOfNoti[0].$key}`).update({state: 'read'});
+
   _This.router.navigate(['/index/profile/'+_This.us.getUid()+'/'], {queryParams: {postId: _This.listOfNoti[0].post}})
   // alert("asd");
 });

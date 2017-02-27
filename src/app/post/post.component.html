@@ -26,8 +26,8 @@
       </span>      -->
       <div class="card-content" style="margin-top: -20px">
         
-        <p *ngIf="!editMode">
-      {{post.text | replaceLineBreaks}}
+        <p *ngIf="!editMode" [outerHTML]="post.text | replaceLineBreaks">
+      <!--{{post.text | replaceLineBreaks}}-->
           
         </p>
         <!--<div class="col s12">
@@ -75,7 +75,7 @@
     <div class="card-content pc center" *ngIf="comment && us.getUid()">
        <div class="row">
         <div class="input-field col s12">
-          <img class="circle prefix" [src]="dp" *ngIf="dp" style="width: 39px; height: 39px">
+          <img class="circle prefix" [src]="us.getUser().dp" *ngIf="us.getUser().dp" style="width: 39px; height: 39px">
           <input id="comment_input" type="text" class="validate" placeholder="Write Your Comment" autofocus #c (keyup.enter)="onComment(c)" style="padding-bottom: 0">
           <!--<textarea name="" placeholder="Write Your Comment" class="validate commentBox materialize-textarea"></textarea>-->
           <!--<label for="comment_input"></label>-->
